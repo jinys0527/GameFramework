@@ -10,6 +10,6 @@
 #define VC_EXTRALEAN
 #endif // !VC_EXTRALEAN
 
-#include <windows.h>
+#include <Windows.h>
 
 #include "NzWndBase.h"

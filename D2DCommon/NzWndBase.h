@@ -18,7 +18,7 @@ public:
 
 protected:
 	friend LRESULT CALLBACK NzWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-
+	
 	virtual bool OnWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) { return false; }
 
 	virtual void OnResize(int width, int height);

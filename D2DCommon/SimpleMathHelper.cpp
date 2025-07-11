@@ -19,6 +19,8 @@ namespace Math
 				}
 			}
 		}
+
+		return cn;
 	}
 
 	int wn_PnPoly(D2D1_POINT_2F P, std::vector<D2D1_POINT_2F> V, int n)
