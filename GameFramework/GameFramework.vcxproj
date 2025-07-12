@@ -126,9 +126,11 @@
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Homework.txt" />
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
@@ -137,6 +139,7 @@
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\D2DCommon\D2DCommon.vcxproj">
