@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -103,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)D2DCommon;$(SolutionDir)D2DRenderer; $(SolutionDir)ResourceManager; $(SolutionDir)AI;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +125,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="AnimationController.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="CoreTypes.h" />
+    <ClInclude Include="FSMComponent.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="TransformComponent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AnimationController.cpp" />
+    <ClCompile Include="FSMComponent.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
