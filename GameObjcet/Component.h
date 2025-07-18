@@ -30,7 +30,7 @@ public:
 	using HandlerType = std::function<void(void*)>;
 	void RegisterMessageHandler(myCore::MessageID msg, HandlerType handler)
 	{
-		m_MessageHandlers[msg].push_back(std::move(handler));
+		m_MessageHandlers[msg].emplace_back(std::move(handler));
 	}
 
 	void SetOwner(GameObject* owner) { m_owner = owner; }

@@ -84,12 +84,12 @@ AnimationClips JsonParser::LoadAnimation(const std::filesystem::path& jsonPath)
 				subClip.AddFrame(clip.GetFrame(i));
 			}
 
-			clips.push_back({ tag.m_name, subClip });
+			clips.emplace_back(std::make_pair(tag.m_name, subClip));
 		}
 	}
 	else
 	{
-		clips.push_back({ key, clip });
+		clips.emplace_back(std::make_pair(key, clip));
 	}
 
 	return clips;

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "d2d1helper.h"
+#include <string>
+#include <vector>
+
 struct Frame
 {
 	D2D1_RECT_U srcRect;
@@ -36,7 +40,7 @@ public:
 
 	void AddFrame(const Frame& frame)
 	{
-		m_frames.push_back(frame);
+		m_frames.emplace_back(frame);
 		m_totalDuration += frame.duration;
 	}
 

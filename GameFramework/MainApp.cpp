@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "MainApp.h"
+#include "InputManager.h"
+#include "TestListener.h"
+#include "EventDispatcher.h"
 
 bool MainApp::Initialize()
 {
@@ -12,7 +15,9 @@ bool MainApp::Initialize()
 	}
 	
 	m_GameTimer.Reset();
-
+	TestListener* test = new TestListener();
+	EventDispatcher::Instance().AddListener(EventType::KeyDown, test);
+	EventDispatcher::Instance().AddListener(EventType::KeyUp, test);
 	return true;
 }
 
@@ -49,8 +54,6 @@ bool MainApp::OnWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 void MainApp::UpdateTime()
 {
-	m_GameTimer.Tick();
-	std::cout << m_GameTimer.TotalTime() << std::endl;
 }
 
 void MainApp::UpdateInput()
@@ -59,6 +62,7 @@ void MainApp::UpdateInput()
 
 void MainApp::UpdateLogic()
 {
+	InputManager::Instance().Update();
 }
 
 void MainApp::Render()

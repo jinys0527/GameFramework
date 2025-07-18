@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "TitleScene.h"
+#include "InputManager.h"
+#include "TestListener.h"
 
 void TitleScene::Initialize(NzWndBase* pWnd)
 {
-
+	TestListener test;
 }
 
 void TitleScene::Finalize()
@@ -20,6 +22,7 @@ void TitleScene::Leave()
 
 void TitleScene::Update(float deltaTime)
 {
+
 }
 
 void TitleScene::Render(HDC hDC)
