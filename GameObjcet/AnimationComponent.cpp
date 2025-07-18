@@ -17,7 +17,7 @@ void AnimationComponent::Update(float deltaTime)
 	const Frame& frame = m_animationController.GetCurrentFrame();
 }
 
-void AnimationComponent::OnEvent(const std::string& evt)
+void AnimationComponent::OnEvent(EventType type, const void* data)
 {
 
 }

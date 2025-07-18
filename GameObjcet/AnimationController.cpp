@@ -60,7 +60,7 @@ void AnimationController::Update(float deltaTime)
 	}
 }
 
-void AnimationController::OnEvent(const std::string& evt)
+void AnimationController::OnEvent(EventType type, const void* data)
 {
 
 }

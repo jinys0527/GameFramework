@@ -5,6 +5,7 @@
 #include <functional>
 #include <unordered_map>
 #include "CoreTypes.h"
+#include "IEventListener.h"
 
 class GameObject;
 
@@ -13,7 +14,7 @@ class Component
 public:
 	virtual ~Component() = default;
 	virtual void Update(float deltaTime) = 0;
-	virtual void OnEvent(const std::string& evt) abstract;
+	virtual void OnEvent(EventType type, const void* data) abstract;
 
 	void HandleMessage(myCore::MessageID msg, void* data)
 	{

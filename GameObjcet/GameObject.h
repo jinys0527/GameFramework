@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <unordered_map>
 #include <memory>
+#include <typeindex>
 #include "CoreTypes.h"
 
 class Component;
@@ -10,6 +11,8 @@ class Component;
 class GameObject
 {
 public:
+	GameObject();
+	virtual ~GameObject() = default;
 	template<typename T, typename... Args>
 	T* AddComponent(Args&&... args)
 	{
@@ -21,7 +24,7 @@ public:
 
 		T* ptr = comp.get();
 
-		m_Components.emplace_back(std::move(comp));
+		m_Components[typeid(T)] = comp;
 
 		return ptr;
 	}
@@ -30,12 +33,10 @@ public:
 	template<typename T>
 	T* GetComponent() const 
 	{
-		for (auto& comp : m_Components)
+		auto it = m_Components.find(typeid(T));
+		if (it != m_Components.end())
 		{
-			if (auto ptr = dynamic_cast<T*>(comp.get()))
-			{
-				return ptr;
-			}
+			return static_cast<T*>(it->second.get());
 		}
 
 		return nullptr;
@@ -43,10 +44,10 @@ public:
 
 	void Update(float deltaTime);
 
-	void SendMessage(const myCore::MessageID msg, void* data = nullptr);
+	void SendMessages(const myCore::MessageID msg, void* data = nullptr);
 	
 	void SendEvent(const std::string& evt);
 protected:
-	std::vector<std::unique_ptr<Component>> m_Components;
+	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_Components;
 };
 

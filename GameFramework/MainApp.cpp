@@ -3,7 +3,7 @@
 #include "InputManager.h"
 #include "TestListener.h"
 #include "EventDispatcher.h"
-
+TestListener* test;
 bool MainApp::Initialize()
 {
 	const wchar_t* className = L"GameFramework";
@@ -15,7 +15,7 @@ bool MainApp::Initialize()
 	}
 	
 	m_GameTimer.Reset();
-	TestListener* test = new TestListener();
+	test = new TestListener();
 	EventDispatcher::Instance().AddListener(EventType::KeyDown, test);
 	EventDispatcher::Instance().AddListener(EventType::KeyUp, test);
 	return true;
@@ -44,7 +44,7 @@ void MainApp::Run()
 
 void MainApp::Finalize()
 {
-
+	delete test;
 }
 
 bool MainApp::OnWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)

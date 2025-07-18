@@ -20,7 +20,7 @@ public:
 	const Frame& GetCurrentFrame() const;
 
 	void Update(float deltaTime) override;
-	void OnEvent(const std::string& evt) override;
+	void OnEvent(EventType type, const void* data) override;
 private:
 	const AnimationClip* m_clip = nullptr;
 	float m_elapsed = 0.f;

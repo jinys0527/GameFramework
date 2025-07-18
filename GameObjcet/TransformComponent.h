@@ -64,6 +64,9 @@ public:
 	void SetPivotPreset(PivotPreset preset, const D2D1_SIZE_F& size);
 	D2D1_POINT_2F GetPivotPoint() const { return m_pivot; }
 
+	void Update(float deltaTime) override;
+	void OnEvent(EventType type, const void* data) override;
+
 private:
 	void SetDirty()
 	{

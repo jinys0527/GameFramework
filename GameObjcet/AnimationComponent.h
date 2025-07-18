@@ -18,7 +18,7 @@ public:
 
 	void Update(float deltaTime) override;
 
-	void OnEvent(const std::string& evt) override;
+	void OnEvent(EventType type, const void* data) override;
 
 private:
 	using AnimationMap = std::unordered_map<std::string, const AnimationClip*>;

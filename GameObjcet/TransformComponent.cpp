@@ -115,6 +115,14 @@ void TransformComponent::SetPivotPreset(PivotPreset preset, const D2D1_SIZE_F& s
 	}
 }
 
+void TransformComponent::Update(float deltaTime)
+{
+}
+
+void TransformComponent::OnEvent(EventType type, const void* data)
+{
+}
+
 void TransformComponent::UpdateMatrices()
 {
 	auto mat_scale = Matrix3X2F::Scale(m_scale.x, m_scale.y, D2D1::Point2F(m_pivot.x, m_pivot.y));

@@ -11,6 +11,11 @@ enum class EventType
 	ButtonPressed,
 	SliderMoved,
 
+	//Collision
+	CollisionEnter,
+	CollisionStay,
+	CollisionExit,
+
 	//Game
 };
 
