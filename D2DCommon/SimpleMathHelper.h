@@ -147,6 +147,25 @@ namespace Math
 		{
 			return x * a.y - y * a.x;
 		}
+
+		Vector2F Normalized() const
+		{
+			float length = Length();
+			if (length > 0.0f)
+			{
+				float invLength = 1.0f / length;
+				return Vector2F(x * invLength, y * invLength);
+			}
+			else
+			{
+				return Vector2F(0.0f, 0.0f); // 혹은 (1, 0) 등 기본 방향
+			}
+		}
+
+		Vector2F operator-() const 
+		{
+			return Vector2F(-x, -y);
+		}
 	};
 
 	inline int IsLeft(D2D1_POINT_2F P0, D2D1_POINT_2F P1, D2D1_POINT_2F P2)

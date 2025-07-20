@@ -136,6 +136,7 @@
     <ClInclude Include="CoreTypes.h" />
     <ClInclude Include="FSMComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
@@ -149,6 +150,8 @@
     <ClCompile Include="FSMComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="RigidbodyComponent.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
