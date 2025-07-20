@@ -1,10 +1,9 @@
 #pragma once
-#include "SingletonBase.h"
 #include "IEventListener.h"
 #include <unordered_map>
 #include <vector>
 
-class EventDispatcher : public SingletonBase<EventDispatcher>
+class EventDispatcher
 {
 public:
 	void AddListener(EventType type, IEventListener* listener);

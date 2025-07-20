@@ -1,8 +1,7 @@
 #pragma once
-#include "SingletonBase.h"
 #include <unordered_set>
 
-class InputManager : public SingletonBase<InputManager>
+class InputManager
 {
 public:
 	void Update();

@@ -4,13 +4,16 @@
 #include "GameTimer.h"
 
 #include <wrl/client.h>
-
+#include "InputManager.h"
+#include "EventDispatcher.h"
+#include "AssetManager.h"
+#include <memory>
 
 
 class MainApp : public NzWndBase
 {
 public:
-	MainApp() = default;
+	MainApp() : NzWndBase(), m_InputManager(std::make_unique<InputManager>()), m_AssetManager(std::make_unique<AssetManager>()), m_EventDispatcher(std::make_unique<EventDispatcher>()) {}
 	virtual ~MainApp() = default;
 
 	bool Initialize();
@@ -30,5 +33,8 @@ private:
 	void OnClose() override;
 
 	GameTimer m_GameTimer;
+	std::unique_ptr<InputManager> m_InputManager;
+	std::unique_ptr<AssetManager> m_AssetManager;
+	std::unique_ptr<EventDispatcher> m_EventDispatcher;
 };
 
