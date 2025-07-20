@@ -5,6 +5,7 @@
 #include <functional>
 #include <unordered_map>
 #include "CoreTypes.h"
+#include "EventDispatcher.h"
 #include "IEventListener.h"
 
 class GameObject;
@@ -36,7 +37,13 @@ public:
 
 	void SetOwner(GameObject* owner) { m_owner = owner; }
 
+	void SetEventDispatcher(EventDispatcher dispatcher)
+	{
+		m_EventDispatcher = dispatcher;
+	}
+
 protected:
 	GameObject* m_owner = nullptr;
 	std::unordered_map<myCore::MessageID, std::vector<HandlerType>> m_MessageHandlers;
+	EventDispatcher& m_EventDispatcher = nullptr;
 };

@@ -3,9 +3,9 @@
 
 void ColliderComponent::Start()
 {
-	EventDispatcher::Instance().AddListener(EventType::CollisionEnter, this);
-	EventDispatcher::Instance().AddListener(EventType::CollisionStay, this);
-	EventDispatcher::Instance().AddListener(EventType::CollisionExit, this);
+	m_EventDispatcher.AddListener(EventType::CollisionEnter, this);
+	m_EventDispatcher.AddListener(EventType::CollisionStay, this);
+	m_EventDispatcher.AddListener(EventType::CollisionExit, this);
 }
 
 void ColliderComponent::Update(float deltaTime)
@@ -30,7 +30,7 @@ void ColliderComponent::OnEvent(EventType type, const void* data)
 
 void ColliderComponent::OnDestroy()
 {
-	EventDispatcher::Instance().RemoveListener(EventType::CollisionEnter, this);
-	EventDispatcher::Instance().RemoveListener(EventType::CollisionStay, this);
-	EventDispatcher::Instance().RemoveListener(EventType::CollisionExit, this);
+	m_EventDispatcher.RemoveListener(EventType::CollisionEnter, this);
+	m_EventDispatcher.RemoveListener(EventType::CollisionStay, this);
+	m_EventDispatcher.RemoveListener(EventType::CollisionExit, this);
 }

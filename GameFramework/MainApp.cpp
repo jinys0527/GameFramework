@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "MainApp.h"
-#include "InputManager.h"
 #include "TestListener.h"
-#include "EventDispatcher.h"
+
 TestListener* test;
 bool MainApp::Initialize()
 {
@@ -16,8 +15,8 @@ bool MainApp::Initialize()
 	
 	m_GameTimer.Reset();
 	test = new TestListener();
-	EventDispatcher::Instance().AddListener(EventType::KeyDown, test);
-	EventDispatcher::Instance().AddListener(EventType::KeyUp, test);
+	m_EventDispatcher->AddListener(EventType::KeyDown, test);
+	m_EventDispatcher->AddListener(EventType::KeyUp, test);
 	return true;
 }
 
@@ -29,6 +28,7 @@ void MainApp::Run()
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
+			if(false == m_InputManager->OnHandleMessage(msg))
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
@@ -62,7 +62,7 @@ void MainApp::UpdateInput()
 
 void MainApp::UpdateLogic()
 {
-	InputManager::Instance().Update();
+	m_InputManager->Update();
 }
 
 void MainApp::Render()

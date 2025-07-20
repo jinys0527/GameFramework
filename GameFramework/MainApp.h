@@ -2,18 +2,20 @@
 
 #include "NzWndBase.h"
 #include "GameTimer.h"
+#include <memory>
 
 #include <wrl/client.h>
-#include "InputManager.h"
 #include "EventDispatcher.h"
+#include "InputManager.h"
+#include "D2DRenderer.h"
 #include "AssetManager.h"
-#include <memory>
+
 
 
 class MainApp : public NzWndBase
 {
 public:
-	MainApp() : NzWndBase(), m_InputManager(std::make_unique<InputManager>()), m_AssetManager(std::make_unique<AssetManager>()), m_EventDispatcher(std::make_unique<EventDispatcher>()) {}
+	MainApp() : NzWndBase(), m_EventDispatcher(std::make_unique<EventDispatcher>()), m_InputManager(std::make_unique<InputManager>(*m_EventDispatcher)), m_Renderer(std::make_unique<D2DRenderer>()), m_AssetManager(std::make_unique<AssetManager>(*m_Renderer)) {}
 	virtual ~MainApp() = default;
 
 	bool Initialize();
@@ -33,8 +35,9 @@ private:
 	void OnClose() override;
 
 	GameTimer m_GameTimer;
-	std::unique_ptr<InputManager> m_InputManager;
-	std::unique_ptr<AssetManager> m_AssetManager;
-	std::unique_ptr<EventDispatcher> m_EventDispatcher;
+	std::unique_ptr<EventDispatcher> m_EventDispatcher = nullptr;
+	std::unique_ptr<InputManager> m_InputManager = nullptr;
+	std::unique_ptr<D2DRenderer> m_Renderer = nullptr;
+	std::unique_ptr<AssetManager> m_AssetManager = nullptr;
 };
 

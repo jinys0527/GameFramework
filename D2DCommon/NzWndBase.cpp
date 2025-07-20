@@ -1,6 +1,4 @@
 #include "pch.h"
-#include <iostream>
-#include "InputManager.h"
 
 LRESULT CALLBACK NzWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -13,12 +11,6 @@ LRESULT CALLBACK NzWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	}
 	switch (msg)
 	{
-	case WM_KEYDOWN:
-		InputManager::Instance().OnKeyDown(static_cast<char>(wparam));
-		break;
-	case WM_KEYUP:
-		InputManager::Instance().OnKeyUp(static_cast<char>(wparam));
-		break;
 	case WM_SIZE:
 		if (pNzWnd) pNzWnd->OnResize(LOWORD(lparam), HIWORD(lparam));
 		return 0;

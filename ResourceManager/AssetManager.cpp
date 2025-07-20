@@ -3,17 +3,17 @@
 #include "JsonParser.h"
 #include "AssetManager.h"
 
-void AssetManager::LoadTexture(D2DRenderer* renderer, std::wstring keyWide, std::filesystem::path fullPath)
+void AssetManager::LoadTexture(std::wstring keyWide, std::filesystem::path fullPath)
 {
 	ComPtr<ID2D1Bitmap1> bitmap;
 
 	std::wstring path = fullPath.wstring();
 
-	renderer->CreateBitmapFromFile(path.c_str(), *bitmap.GetAddressOf());
+	m_Renderer.CreateBitmapFromFile(path.c_str(), *bitmap.GetAddressOf());
 	m_Textures.insert({ keyWide, bitmap });
 }
 
-void AssetManager::LoadAnimation(D2DRenderer* renderer, std::wstring keyWide, std::filesystem::path fullPath)
+void AssetManager::LoadAnimation(std::wstring keyWide, std::filesystem::path fullPath)
 {
 	m_Animations.insert({ keyWide, JsonParser::LoadAnimation(fullPath) });
 
@@ -27,13 +27,13 @@ void AssetManager::LoadAnimation(D2DRenderer* renderer, std::wstring keyWide, st
 		std::filesystem::path keyPath = fullPath.replace_extension(".png");
 		std::wstring path = keyPath.wstring();
 
-		renderer->CreateBitmapFromFile(path.c_str(), *bitmap.GetAddressOf());
+		m_Renderer.CreateBitmapFromFile(path.c_str(), *bitmap.GetAddressOf());
 		clip.second.SetTextureKey(keyWide);
 		m_Textures.insert({ keyWide, bitmap });
 	}
 }
 
-const ID2D1Bitmap1* AssetManager::GetTexture(const std::wstring& key) const
+const Microsoft::WRL::ComPtr<ID2D1Bitmap1> AssetManager::GetTexture(const std::wstring& key) const
 {
 	auto it = m_Textures.find(key);
 	if (it != m_Textures.end())

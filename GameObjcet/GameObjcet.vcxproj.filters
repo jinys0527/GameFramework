@@ -33,13 +33,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CoreTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
@@ -72,14 +66,17 @@
     <ClInclude Include="GameObject.h">
       <Filter>Object\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Component\Header</Filter>
+    </ClInclude>
     <ClInclude Include="RigidbodyComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Component\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Component\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnimationController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>Component\Source</Filter>
     </ClCompile>
@@ -107,11 +104,14 @@
     <ClCompile Include="CameraObject.cpp">
       <Filter>Object\Source</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="AnimationController.cpp">
+      <Filter>Component\Source</Filter>
     </ClCompile>
     <ClCompile Include="RigidbodyComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Component\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Component\Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
