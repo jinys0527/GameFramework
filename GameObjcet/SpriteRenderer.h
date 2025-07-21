@@ -18,8 +18,11 @@ class SpriteRenderer : public Component
 {
 	using Vec2F = Math::Vector2F;
 public:
-	SpriteRenderer(SpritePivotPreset spp, const D2D1_SIZE_F& size);
+	SpriteRenderer();
 	virtual ~SpriteRenderer() = default;
+
+	void Update(float deltaTime) override;
+	void OnEvent(EventType type, const void* data) override;
 
 	void SetTexture(Microsoft::WRL::ComPtr<ID2D1Bitmap1> texture);
 	Microsoft::WRL::ComPtr<ID2D1Bitmap1> GetTexture() const;
@@ -35,8 +38,9 @@ public:
 		return m_pivot;
 	}
 
-private:
 	void SetPivotPreset(SpritePivotPreset spp, const D2D1_SIZE_F& size);
+
+private:
 	Microsoft::WRL::ComPtr<ID2D1Bitmap1> m_Sprite;
 	bool m_flipX;
 	bool m_flipY;

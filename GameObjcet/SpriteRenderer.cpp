@@ -22,9 +22,8 @@ void SpriteRenderer::SetPivotPreset(SpritePivotPreset spp, const D2D1_SIZE_F& si
 	}
 }
 
-SpriteRenderer::SpriteRenderer(SpritePivotPreset spp, const D2D1_SIZE_F& size) : m_flipX(false), m_flipY(false)
+SpriteRenderer::SpriteRenderer() : m_flipX(false), m_flipY(false)
 {
-	SetPivotPreset(spp, size);
 }
 
 void SpriteRenderer::SetTexture(Microsoft::WRL::ComPtr<ID2D1Bitmap1> texture)

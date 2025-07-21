@@ -57,9 +57,6 @@
     <ClInclude Include="FSMComponent.h">
       <Filter>Component\Header</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CameraObject.h">
       <Filter>Object\Header</Filter>
     </ClInclude>
@@ -75,7 +72,13 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Component\Header</Filter>
     </ClInclude>
+    <ClInclude Include="RectTransformComponent.h">
+      <Filter>Component\Header</Filter>
+    </ClInclude>
     <ClInclude Include="UIComponent.h">
+      <Filter>Component\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -107,16 +110,19 @@
     <ClCompile Include="CameraObject.cpp">
       <Filter>Object\Source</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationController.cpp">
-      <Filter>Component\Source</Filter>
-    </ClCompile>
     <ClCompile Include="RigidbodyComponent.cpp">
       <Filter>Component\Source</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Component\Source</Filter>
     </ClCompile>
+    <ClCompile Include="RectTransformComponent.cpp">
+      <Filter>Component\Source</Filter>
+    </ClCompile>
     <ClCompile Include="UIComponent.cpp">
+      <Filter>Component\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

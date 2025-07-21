@@ -17,6 +17,9 @@ public:
 		transform = m_owner->GetComponent<TransformComponent>();
 	}
 
+	void Update(float deltaTime) override;
+	void OnEvent(EventType type, const void* data) override;
+
 	void AddForce(const Vec2F& f)
 	{
 		if (!isKinematic)

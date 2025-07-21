@@ -8,8 +8,11 @@ enum class EventType
 	MouseClick,
 
 	//UI
-	ButtonPressed,
-	SliderMoved,
+	Hovered,
+	Pressed,
+	Released,
+	Moved,
+
 
 	//Collision
 	CollisionEnter,

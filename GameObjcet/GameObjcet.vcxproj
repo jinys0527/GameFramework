@@ -136,6 +136,7 @@
     <ClInclude Include="CoreTypes.h" />
     <ClInclude Include="FSMComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="RectTransformComponent.h" />
     <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="TransformComponent.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="FSMComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="RectTransformComponent.cpp" />
     <ClCompile Include="RigidbodyComponent.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
