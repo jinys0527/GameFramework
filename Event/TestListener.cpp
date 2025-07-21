@@ -20,9 +20,9 @@ void TestListener::OnEvent(EventType type, const void* data)
 	}
 	case EventType::MouseClick:
 		break;
-	case EventType::ButtonPressed:
+	case EventType::Pressed:
 		break;
-	case EventType::SliderMoved:
+	case EventType::Moved:
 		break;
 	default:
 		break;

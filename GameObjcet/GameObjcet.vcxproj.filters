@@ -81,6 +81,15 @@
     <ClInclude Include="AnimationController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UITextComponent.h">
+      <Filter>Component\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButtonComponent.h">
+      <Filter>Component\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="UIImageComponent.h">
+      <Filter>Component\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationComponent.cpp">
@@ -124,6 +133,15 @@
     </ClCompile>
     <ClCompile Include="AnimationController.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIImageComponent.cpp">
+      <Filter>Component\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButtonComponent.cpp">
+      <Filter>Component\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextComponent.cpp">
+      <Filter>Component\Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
