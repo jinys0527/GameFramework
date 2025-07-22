@@ -219,6 +219,7 @@ void D2DRenderer::CreateDeviceAndSwapChain(HWND hwnd)
 	scDesc.Scaling = DXGI_SCALING_STRETCH;
 
 	ComPtr<IDXGISwapChain1> swapChain;
+
 	hr = dxgiFactory->CreateSwapChainForHwnd(d3dDevice.Get(), hwnd, &scDesc, nullptr, nullptr, &swapChain);
 
 	DX::ThrowIfFailed(hr);

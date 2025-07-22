@@ -31,6 +31,12 @@ public:
 
 	void SetTransform(const D2D1_MATRIX_3X2_F tm);
 
+	// Set the target bitmap for D2D rendering
+	void SetTarget()
+	{
+		m_d2dContext->SetTarget(m_targetBitmap.Get());
+	}
+
 	void RenderBegin();
 
 	void RenderEnd(bool bPresent = true);
@@ -42,6 +48,8 @@ public:
 	ID3D11Device* GetD3DDevice() const { return m_d3dDevice.Get(); }
 
 	ID3D11DeviceContext* GetD3DContext() const { return m_d3dContext.Get(); }
+
+	ID2D1DeviceContext7* GetD2DContext() const { return m_d2dContext.Get(); }
 
 	ID3D11RenderTargetView* GetD3DRenderTargetView() const { return m_d3dRenderTargetView.Get(); }
 

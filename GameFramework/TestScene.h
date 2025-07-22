@@ -1,21 +1,19 @@
 #pragma once
 #include "Scene.h"
 
-class TitleScene : public Scene
+class TestScene : public Scene
 {
-public:
-	virtual ~TitleScene() = default;
+	TestScene() = default;
+	virtual ~TestScene() = default;
 
 	void Initialize(NzWndBase* pWnd) override;
-	void Finalize() override;
+	void Finalize()  override;
 
 	void Enter() override;
 	void Leave() override;
 
-	void FixedUpdate() override {}
+	void FixedUpdate() override;
 	void Update(float deltaTime) override;
 	void Render(HDC hDC) override;
-	
-private:
 };
 

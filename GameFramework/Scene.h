@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "CameraObject.h"
 
 class NzWndBase;
 class GameObject;
@@ -8,7 +9,7 @@ class Scene
 {
 public:
 	Scene() = default;
-	virtual ~Scene() = default;
+	virtual ~Scene();
 	virtual void Initialize(NzWndBase* pWnd) = 0;
 	virtual void Finalize() = 0;
 
@@ -21,7 +22,7 @@ public:
 
 protected:
 	std::vector<GameObject*> m_GameObjects;
-
+	CameraObject m_Camera;
 private:
 	Scene(const Scene&) = delete;
 	Scene& operator=(const Scene&) = delete;

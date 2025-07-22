@@ -15,7 +15,7 @@
 class MainApp : public NzWndBase
 {
 public:
-	MainApp() : NzWndBase(), m_EventDispatcher(std::make_unique<EventDispatcher>()), m_InputManager(std::make_unique<InputManager>(*m_EventDispatcher)), m_Renderer(std::make_unique<D2DRenderer>()), m_AssetManager(std::make_unique<AssetManager>(*m_Renderer)) {}
+	MainApp() : NzWndBase() { }
 	virtual ~MainApp() = default;
 
 	bool Initialize();
@@ -35,6 +35,11 @@ private:
 	void OnClose() override;
 
 	GameTimer m_GameTimer;
+
+	ComPtr<ID2D1Bitmap1>        m_testBitmap;
+
+	ComPtr<ID2D1Bitmap1>        m_background;
+
 	std::unique_ptr<EventDispatcher> m_EventDispatcher = nullptr;
 	std::unique_ptr<InputManager> m_InputManager = nullptr;
 	std::unique_ptr<D2DRenderer> m_Renderer = nullptr;

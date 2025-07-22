@@ -17,8 +17,8 @@ public:
 	}
 	~AssetManager() = default;
 
-	void LoadTexture(std::wstring keyWide, std::filesystem::path fullPath);
-	void LoadAnimation(std::wstring keyWide, std::filesystem::path fullPath);
+	ID2D1Bitmap1* LoadTexture(std::wstring keyWide, std::filesystem::path fullPath);
+	const AnimationClips& LoadAnimation(std::wstring keyWide, std::filesystem::path fullPath);
 
 	const Microsoft::WRL::ComPtr<ID2D1Bitmap1> GetTexture(const std::wstring& key) const;
 	const AnimationClips& GetClips(const std::wstring& key) const;

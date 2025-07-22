@@ -5,7 +5,6 @@
 
 void TitleScene::Initialize(NzWndBase* pWnd)
 {
-	TestListener test;
 }
 
 void TitleScene::Finalize()

@@ -5,9 +5,8 @@
 #include <memory>
 #include <typeindex>
 #include "CoreTypes.h"
+#include "Component.h"
 #include "EventDispatcher.h"
-
-class Component;
 
 class GameObject
 {
