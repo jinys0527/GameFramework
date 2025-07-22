@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "MainApp.h"
 #include "TestListener.h"
+#include "SimpleMathHelper.h"
+#include "GameObject.h"
+#include "CameraObject.h"
+#include "SpriteRenderer.h"
+#include "TransformComponent.h"
 
 TestListener* test;
 
@@ -26,6 +31,10 @@ bool MainApp::Initialize()
 	m_EventDispatcher->AddListener(EventType::KeyDown, test);
 	m_EventDispatcher->AddListener(EventType::KeyUp, test);
 
+	m_Player = new GameObject(*m_EventDispatcher);
+	m_Player->AddComponent<SpriteRenderer>();
+
+
 	return true;
 }
 
@@ -39,6 +48,13 @@ void MainApp::Run()
 	m_background = m_AssetManager->LoadTexture(L"vecteezy", L"../Resource/vecteezy.png");
 	assert(m_background != nullptr && "Failed to load background texture.");
 
+	SpriteRenderer* sr = m_Player->GetComponent<SpriteRenderer>();
+	sr->SetTexture(m_testBitmap);
+
+	TransformComponent* trans = m_Player->GetComponent<TransformComponent>();
+	trans->SetPosition({ 0.0f, 400.0f });
+	m_EventDispatcher->AddListener(EventType::KeyDown, trans);
+
 	while (WM_QUIT != msg.message)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -50,6 +66,7 @@ void MainApp::Run()
 		else
 		{
 			UpdateTime();
+			Update();
 			UpdateInput();
 			UpdateLogic();
 			Render();
@@ -60,6 +77,14 @@ void MainApp::Run()
 void MainApp::Finalize()
 {
 	delete test;
+	if (m_Player)
+	{
+		delete m_Player;
+	}
+	if (m_Camera)
+		delete m_Camera;
+	if (m_Obstacle)
+		delete m_Obstacle;
 	__super::Destroy();
 
 }
@@ -81,6 +106,11 @@ void MainApp::UpdateInput()
 void MainApp::UpdateLogic()
 {
 	m_InputManager->Update();
+}
+
+void MainApp::Update()
+{
+	m_Player->Update(m_GameTimer.DeltaTime());
 }
 
 void MainApp::Render()
@@ -107,11 +137,16 @@ void MainApp::Render()
 		m_Renderer->DrawBitmap(m_background.Get(), bgRect);
 	}
 
-	// 원본 그리기
-	m_Renderer->SetTransform(D2D1::Matrix3x2F::Translation(0.f, 400.f));
+	TransformComponent trans = *m_Player->RenderPosition();
+	Math::Vector2F pos = trans.GetPosition();
 
-	m_Renderer->DrawBitmap(m_testBitmap.Get(), srcRect);
+	m_Renderer->SetTransform(D2D1::Matrix3x2F::Translation(pos.x, pos.y));
+	
+	SpriteRenderer sp = *m_Player->RenderTexture();
+	ID2D1Bitmap1* bmp = *sp.GetTexture().GetAddressOf();
 
+	m_Renderer->DrawBitmap(bmp, srcRect);
+	
 	m_Renderer->RenderEnd();
 }
 

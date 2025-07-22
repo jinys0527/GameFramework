@@ -26,6 +26,14 @@ SpriteRenderer::SpriteRenderer() : m_flipX(false), m_flipY(false)
 {
 }
 
+void SpriteRenderer::Update(float deltaTime)
+{
+}
+
+void SpriteRenderer::OnEvent(EventType type, const void* data)
+{
+}
+
 void SpriteRenderer::SetTexture(Microsoft::WRL::ComPtr<ID2D1Bitmap1> texture)
 {
 	m_Sprite = texture;

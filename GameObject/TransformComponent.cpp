@@ -1,5 +1,7 @@
 #include "TransformComponent.h"
+#include "Event.h"
 #include <cassert>
+#include <iostream>
 
 void TransformComponent::SetParent(TransformComponent* newParent)
 {
@@ -117,10 +119,56 @@ void TransformComponent::SetPivotPreset(PivotPreset preset, const D2D1_SIZE_F& s
 
 void TransformComponent::Update(float deltaTime)
 {
+	std::cout << 1 << std::endl;
+	constexpr float moveSpeed = 100.0f; // 초당 이동 속도
+	D2D1_POINT_2F delta = { 0.0f, 0.0f };
+
+	if (m_IsWPressed) delta.y -= moveSpeed * deltaTime;
+	if (m_IsAPressed) delta.x -= moveSpeed * deltaTime;
+	if (m_IsSPressed) delta.y += moveSpeed * deltaTime;
+	if (m_IsDPressed) delta.x += moveSpeed * deltaTime;
+	std::cout << 2 << std::endl;
+	m_position.x += delta.x;
+	m_position.y += delta.y;
+
+	if (delta.x != 0 || delta.y != 0)
+		SetDirty();
 }
 
 void TransformComponent::OnEvent(EventType type, const void* data)
 {
+	if (type == EventType::KeyDown)
+	{
+		auto keyData = static_cast<const Events::KeyEvent*>(data);
+		if (!keyData) return;
+
+		bool isDown = (type == EventType::KeyDown);
+
+		switch (keyData->key)
+		{
+		case 'W': m_IsWPressed = isDown; break;
+		case 'A': m_IsAPressed = isDown; break;
+		case 'S': m_IsSPressed = isDown; break;
+		case 'D': m_IsDPressed = isDown; break;
+		default: break;
+		}
+	}
+	else
+	{
+		auto keyData = static_cast<const Events::KeyEvent*>(data);
+		if (!keyData) return;
+
+		bool isDown = (type == EventType::KeyDown);
+
+		switch (keyData->key)
+		{
+		case 'W': m_IsWPressed = isDown; break;
+		case 'A': m_IsAPressed = isDown; break;
+		case 'S': m_IsSPressed = isDown; break;
+		case 'D': m_IsDPressed = isDown; break;
+		default: break;
+		}
+	}
 }
 
 void TransformComponent::UpdateMatrices()

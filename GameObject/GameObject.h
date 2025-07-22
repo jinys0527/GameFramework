@@ -8,10 +8,13 @@
 #include "Component.h"
 #include "EventDispatcher.h"
 
+class TransformComponent;
+class SpriteRenderer;
+
 class GameObject
 {
 public:
-	GameObject(EventDispatcher eventDispatcher);
+	GameObject(EventDispatcher& eventDispatcher);
 	virtual ~GameObject() = default;
 	template<typename T, typename... Args>
 	T* AddComponent(Args&&... args)
@@ -43,6 +46,9 @@ public:
 	}
 
 	void Update(float deltaTime);
+
+	TransformComponent* RenderPosition();		//테스트용
+	SpriteRenderer* RenderTexture();
 
 	void SendMessages(const myCore::MessageID msg, void* data = nullptr);
 	

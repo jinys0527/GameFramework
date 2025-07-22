@@ -10,12 +10,13 @@
 #include "D2DRenderer.h"
 #include "AssetManager.h"
 
-
+class GameObject;
+class CameraObject;
 
 class MainApp : public NzWndBase
 {
 public:
-	MainApp() : NzWndBase() { }
+	MainApp() : NzWndBase(){ }
 	virtual ~MainApp() = default;
 
 	bool Initialize();
@@ -28,6 +29,7 @@ private:
 	void UpdateTime();
 	void UpdateInput();
 	void UpdateLogic();
+	void Update();
 
 	void Render();
 	
@@ -39,6 +41,10 @@ private:
 	ComPtr<ID2D1Bitmap1>        m_testBitmap;
 
 	ComPtr<ID2D1Bitmap1>        m_background;
+
+	GameObject* m_Player;
+	CameraObject* m_Camera;
+	GameObject* m_Obstacle;
 
 	std::unique_ptr<EventDispatcher> m_EventDispatcher = nullptr;
 	std::unique_ptr<InputManager> m_InputManager = nullptr;

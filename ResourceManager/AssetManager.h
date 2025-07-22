@@ -12,7 +12,7 @@ class AssetManager
 {
 public:
 	using AnimationClips = std::vector<std::pair<std::string, AnimationClip>>;
-	AssetManager(D2DRenderer renderer) : m_Renderer(renderer)
+	AssetManager(D2DRenderer& renderer) : m_Renderer(renderer)
 	{
 	}
 	~AssetManager() = default;

@@ -13,7 +13,7 @@ enum class PivotPreset
 	Center
 };
 
-class TransformComponent : public Component
+class TransformComponent : public Component, public IEventListener
 {
 public:
 	using Vec2F = Math::Vector2F;
@@ -80,7 +80,7 @@ private:
 	void UpdateMatrices();
 
 private:
-	Vec2F m_position;
+	Vec2F m_position = { 0.0f, 0.0f };
 	float m_rotation = 0.0f;
 	Vec2F m_scale = { 1.0f, 1.0f };
 
@@ -91,6 +91,11 @@ private:
 
 	Matrix3X2F m_localMatrix;
 	Matrix3X2F m_worldMatrix;
+
+	bool m_IsWPressed = false;
+	bool m_IsAPressed = false;
+	bool m_IsSPressed = false;
+	bool m_IsDPressed = false;
 
 	bool m_isDirty = true;
 
