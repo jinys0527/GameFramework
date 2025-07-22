@@ -8,6 +8,9 @@ void BoxColliderComponent::Start()
 	GetEventDispatcher().AddListener(EventType::CollisionEnter, this);
 	GetEventDispatcher().AddListener(EventType::CollisionStay, this);
 	GetEventDispatcher().AddListener(EventType::CollisionExit, this);
+	auto* transform = m_owner->GetComponent<TransformComponent>();
+	if (transform)
+		center = transform->GetPosition();
 }
 
 bool BoxColliderComponent::BoxVsBox(const BoxColliderComponent& other) const
@@ -28,6 +31,10 @@ void BoxColliderComponent::Update(float deltaTime)
 	{
 		center = transform->GetPosition();
 	}
+
+	m_CurrentCollisions.clear();
+
+
 }
 
 void BoxColliderComponent::OnEvent(EventType type, const void* data)

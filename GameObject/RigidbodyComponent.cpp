@@ -1,5 +1,13 @@
 #include "RigidbodyComponent.h"
 
+void RigidbodyComponent::Update(float deltaTime)
+{
+}
+
+void RigidbodyComponent::OnEvent(EventType type, const void* data)
+{
+}
+
 void RigidbodyComponent::Integrate(float deltaTime)
 {
 	if (isKinematic || !transform)

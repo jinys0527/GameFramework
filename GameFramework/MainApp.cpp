@@ -39,7 +39,6 @@ bool MainApp::Initialize()
 	m_EventDispatcher->AddListener(EventType::KeyDown, trans);
 	m_EventDispatcher->AddListener(EventType::KeyUp, trans);
 	BoxColliderComponent* bx = m_Player->AddComponent<BoxColliderComponent>();
-	bx->SetCenter({ 0.0f, 400.0f });
 	bx->SetSize({ 100.0f, 100.0f });
 	bx->Start();
 
@@ -48,7 +47,6 @@ bool MainApp::Initialize()
 	trans = m_Obstacle->GetComponent < TransformComponent>();
 	trans->SetPosition({ 500.0f, 300.0f });
 	bx = m_Obstacle->AddComponent<BoxColliderComponent>();
-	bx->SetCenter({ 500.0f, 300.0f });
 	bx->SetSize({ 100.0f, 100.0f });
 	bx->Start();
 
@@ -131,8 +129,38 @@ void MainApp::UpdateLogic()
 void MainApp::Update()
 {
 	m_Player->Update(m_GameTimer.DeltaTime());
-	BoxColliderComponent ob = *m_Obstacle->GetComponent<BoxColliderComponent>();
-	m_Player->GetComponent<BoxColliderComponent>()->BoxVsBox(ob);
+
+	auto* playerCol = m_Player->GetComponent<BoxColliderComponent>();
+	auto* obsCol = m_Obstacle->GetComponent<BoxColliderComponent>();
+
+	bool isColliding = playerCol->BoxVsBox(*obsCol);
+	CollisionState prevState = playerCol->GetCollisionState();
+
+	if (isColliding)
+	{
+		if (prevState == CollisionState::None || prevState == CollisionState::Exit)
+		{
+			playerCol->SetCollisionState(CollisionState::Enter);
+			printf("Collision Enter\n");
+		}
+		else
+		{
+			playerCol->SetCollisionState(CollisionState::Stay);
+			printf("Collision Stay\n");
+		}
+	}
+	else
+	{
+		if (prevState == CollisionState::Enter || prevState == CollisionState::Stay)
+		{
+			playerCol->SetCollisionState(CollisionState::Exit);
+			printf("Collision Exit\n");
+		}
+		else
+		{
+			playerCol->SetCollisionState(CollisionState::None);
+		}
+	}
 }
 
 void MainApp::Render()

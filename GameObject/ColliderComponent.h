@@ -1,10 +1,19 @@
 #pragma once
 #include "Component.h"
 #include "SimpleMathHelper.h"
+#include <unordered_set>
 
 using Vec2F = Math::Vector2F;
 
 class ColliderComponent;
+
+enum class CollisionState
+{
+	None,
+	Enter,
+	Stay,
+	Exit
+};
 
 struct CollisionInfo
 {
@@ -14,6 +23,8 @@ struct CollisionInfo
 	Vec2F contactPoint;              // 접촉 지점 (필요할 경우)
 	float penetrationDepth;          // 침투 깊이 (분리 계산에 사용)
 };
+
+class GameObject;
 
 class ColliderComponent : public Component, public IEventListener
 {
@@ -28,13 +39,19 @@ public:
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
 	virtual void OnDestroy();
-
+	CollisionState GetCollisionState() const { return m_CollisionState; }
+	void SetCollisionState(CollisionState state) { m_CollisionState = state; }
 protected:
 	virtual void OnCollisionEnter(const CollisionInfo* info) {}
 	virtual void OnCollisionStay(const CollisionInfo* info)  {}
 	virtual void OnCollisionExit(const CollisionInfo* info)  {}
 
+
+
 	bool isTrigger;
 	Vec2F center;
+
+	std::unordered_set<GameObject*> m_CurrentCollisions;
+	CollisionState m_CollisionState = CollisionState::None;
 };
 
