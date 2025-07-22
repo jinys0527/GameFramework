@@ -94,24 +94,32 @@ namespace Math
 		{
 			this->x += vector.x;
 			this->y += vector.y;
+
+			return *this;
 		}
 
 		Vector2F& operator-=(const Vector2F& vector)
 		{
 			this->x -= vector.x;
 			this->y -= vector.y;
+
+			return *this;
 		}
 
 		Vector2F& operator*=(float scalar)
 		{
 			this->x *= scalar;
 			this->y *= scalar;
+
+			return *this;
 		}
 
 		Vector2F& operator/=(float scalar)
 		{
 			this->x /= scalar;
 			this->y /= scalar;
+
+			return *this;
 		}
 
 		bool operator==(const Vector2F& vector) const
@@ -166,7 +174,24 @@ namespace Math
 		{
 			return Vector2F(-x, -y);
 		}
+
+		bool operator<(const Vector2F& other) const
+		{
+			return (x < other.x) || (x == other.x && y < other.y);
+		}
+
+		bool operator>(const Vector2F& other) const
+		{
+			return other < *this;
+		}
 	};
+
+	inline Vector2F Clamp(Vector2F value, Vector2F min, Vector2F max)
+	{
+		if (value < min)	return min;
+		if (value > max)	return max;
+		return value;
+	}
 
 	inline int IsLeft(D2D1_POINT_2F P0, D2D1_POINT_2F P1, D2D1_POINT_2F P2)
 	{

@@ -4,6 +4,8 @@
 
 using Vec2F = Math::Vector2F;
 
+class ColliderComponent;
+
 struct CollisionInfo
 {
 	ColliderComponent* self;         // ÀÚ½Å

@@ -2,8 +2,7 @@
 #include "Component.h"
 #include "wrl/client.h"
 #include "SimpleMathHelper.h"
-
-class ID2D1Bitmap1;
+#include <d2d1_1.h>
 
 enum class SpritePivotPreset
 {

@@ -1,7 +1,7 @@
 #include "CameraObject.h"
 #include "CameraComponent.h"
 
-CameraObject::CameraObject(float width, float height)
+CameraObject::CameraObject(EventDispatcher eventDispatcher, float width, float height) : GameObject(eventDispatcher)
 {
 	AddComponent<CameraComponent>();
 	auto* camera = GetComponent<CameraComponent>();

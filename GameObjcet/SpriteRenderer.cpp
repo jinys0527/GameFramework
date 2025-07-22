@@ -31,7 +31,7 @@ void SpriteRenderer::SetTexture(Microsoft::WRL::ComPtr<ID2D1Bitmap1> texture)
 	m_Sprite = texture;
 }
 
-Microsoft::WRL::ComPtr<ID2D1Bitmap1> SpriteRenderer::GetTexture() const 
+Microsoft::WRL::ComPtr<ID2D1Bitmap1> SpriteRenderer::GetTexture() const
 {
 	return m_Sprite;
 }

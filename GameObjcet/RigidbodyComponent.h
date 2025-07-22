@@ -45,7 +45,7 @@ public:
 		isKinematic = value;
 	}
 
-	bool isKinematic() const { return isKinematic; }
+	bool IsKinematic() const { return isKinematic; }
 
 	void SetGravity(const Vec2F& g) { gravity = g; }
 	void SetFriction(float friction) { frictionCoefficient = friction; }

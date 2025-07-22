@@ -13,6 +13,7 @@ class GameObject;
 class Component
 {
 public:
+	Component() = default;
 	virtual ~Component() = default;
 	virtual void Update(float deltaTime) = 0;
 	virtual void OnEvent(EventType type, const void* data) abstract;
@@ -37,13 +38,8 @@ public:
 
 	void SetOwner(GameObject* owner) { m_owner = owner; }
 
-	void SetEventDispatcher(EventDispatcher dispatcher)
-	{
-		m_EventDispatcher = dispatcher;
-	}
-
 protected:
 	GameObject* m_owner = nullptr;
 	std::unordered_map<myCore::MessageID, std::vector<HandlerType>> m_MessageHandlers;
-	EventDispatcher& m_EventDispatcher = nullptr;
+	EventDispatcher& GetEventDispatcher() const;
 };

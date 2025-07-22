@@ -4,6 +4,7 @@
 #include <d2d1helper.h>
 using namespace Microsoft::WRL;
 
+
 class D2DRenderer
 {
 public:

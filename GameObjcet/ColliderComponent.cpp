@@ -3,9 +3,9 @@
 
 void ColliderComponent::Start()
 {
-	m_EventDispatcher.AddListener(EventType::CollisionEnter, this);
-	m_EventDispatcher.AddListener(EventType::CollisionStay, this);
-	m_EventDispatcher.AddListener(EventType::CollisionExit, this);
+	GetEventDispatcher().AddListener(EventType::CollisionEnter, this);
+	GetEventDispatcher().AddListener(EventType::CollisionStay, this);
+	GetEventDispatcher().AddListener(EventType::CollisionExit, this);
 }
 
 void ColliderComponent::Update(float deltaTime)
@@ -17,20 +17,20 @@ void ColliderComponent::OnEvent(EventType type, const void* data)
 	switch (type)
 	{
 	case EventType::CollisionEnter:
-		OnCollisionEnter(static_cast<CollisionInfo*>(data));
+		OnCollisionEnter(static_cast<const CollisionInfo*>(data));
 		break;
 	case EventType::CollisionStay:
-		OnCollisionStay(static_cast<CollisionInfo*>(data));
+		OnCollisionStay(static_cast<const CollisionInfo*>(data));
 		break;
 	case EventType::CollisionExit:
-		OnCollisionExit(static_cast<CollisionInfo*>(data));
+		OnCollisionExit(static_cast<const CollisionInfo*>(data));
 		break;
 	}
 }
 
 void ColliderComponent::OnDestroy()
 {
-	m_EventDispatcher.RemoveListener(EventType::CollisionEnter, this);
-	m_EventDispatcher.RemoveListener(EventType::CollisionStay, this);
-	m_EventDispatcher.RemoveListener(EventType::CollisionExit, this);
+	GetEventDispatcher().RemoveListener(EventType::CollisionEnter, this);
+	GetEventDispatcher().RemoveListener(EventType::CollisionStay, this);
+	GetEventDispatcher().RemoveListener(EventType::CollisionExit, this);
 }

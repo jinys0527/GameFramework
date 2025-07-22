@@ -41,7 +41,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -152,6 +152,7 @@
     <ClCompile Include="BoxColliderComponent.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="FSMComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
@@ -163,6 +164,20 @@
     <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="UIImageComponent.cpp" />
     <ClCompile Include="UITextComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\D2DCommon\D2DCommon.vcxproj">
+      <Project>{2a34c5ab-2844-40c0-8720-9745743e797b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\D2DRenderer\D2DRenderer.vcxproj">
+      <Project>{9ff2b6a5-f095-40ab-9553-0fa7ee84593f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Event\Event.vcxproj">
+      <Project>{f19d0681-a873-4297-bb00-e750294995e9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ResourceManager\ResourceManager.vcxproj">
+      <Project>{62ee5df8-394e-480a-855f-b41f46953a16}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

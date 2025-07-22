@@ -8,7 +8,6 @@
 #include "UIData.h"
 #include "MapData.h"
 
-
 class AssetManager
 {
 public:

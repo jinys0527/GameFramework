@@ -1,10 +1,9 @@
 #pragma once
 #include "UIComponent.h"
 #include <wrl/client.h>
-#include <d2d1.h>
+#include <d2d1_1.h>
 
 class D2DRenderer;
-class ID2D1Bitmap1;
 
 class UIImageComponent : public UIComponent
 {

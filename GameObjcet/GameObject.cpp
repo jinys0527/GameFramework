@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 
-GameObject::GameObject()
+GameObject::GameObject(EventDispatcher eventDispatcher) : m_EventDispatcher(eventDispatcher)
 {
 	AddComponent<TransformComponent>();
 }
@@ -28,6 +28,6 @@ void GameObject::SendEvent(const std::string& evt)
 {
 	for (auto it = m_Components.begin(); it != m_Components.end(); it++)
 	{
-		it->second->OnEvent(evt);
+		//it->second->OnEvent(evt);
 	}
 }

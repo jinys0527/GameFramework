@@ -143,5 +143,8 @@
     <ClCompile Include="UITextComponent.cpp">
       <Filter>Component\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

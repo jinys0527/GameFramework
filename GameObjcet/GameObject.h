@@ -5,13 +5,14 @@
 #include <memory>
 #include <typeindex>
 #include "CoreTypes.h"
+#include "EventDispatcher.h"
 
 class Component;
 
 class GameObject
 {
 public:
-	GameObject();
+	GameObject(EventDispatcher eventDispatcher);
 	virtual ~GameObject() = default;
 	template<typename T, typename... Args>
 	T* AddComponent(Args&&... args)
@@ -24,7 +25,7 @@ public:
 
 		T* ptr = comp.get();
 
-		m_Components[typeid(T)] = comp;
+		m_Components[typeid(T)] = std::move(comp);
 
 		return ptr;
 	}
@@ -47,7 +48,10 @@ public:
 	void SendMessages(const myCore::MessageID msg, void* data = nullptr);
 	
 	void SendEvent(const std::string& evt);
+
+	EventDispatcher& GetEventDispatcher() const { return m_EventDispatcher; }
 protected:
 	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_Components;
+	EventDispatcher& m_EventDispatcher;
 };
 

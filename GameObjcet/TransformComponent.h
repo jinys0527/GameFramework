@@ -19,7 +19,7 @@ public:
 	using Vec2F = Math::Vector2F;
 	using Matrix3X2F = D2D1::Matrix3x2F;
 
-	TransformComponent() : m_position{ 0, 0 }, m_rotation(0.0f), m_scale{ 1.0f, 1.0f }, m_isDirty(false), m_parent(nullptr)
+	TransformComponent() : Component(), m_position{ 0, 0 }, m_rotation(0.0f), m_scale{ 1.0f, 1.0f }, m_isDirty(false), m_parent(nullptr)
 	{
 		m_localMatrix = D2D1::Matrix3x2F::Identity();
 		m_worldMatrix = D2D1::Matrix3x2F::Identity();
