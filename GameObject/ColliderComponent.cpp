@@ -1,6 +1,7 @@
 #include "ColliderComponent.h"
 #include "EventDispatcher.h"
 
+
 void ColliderComponent::Start()
 {
 	GetEventDispatcher().AddListener(EventType::CollisionEnter, this);
@@ -10,6 +11,7 @@ void ColliderComponent::Start()
 
 void ColliderComponent::Update(float deltaTime)
 {
+
 }
 
 void ColliderComponent::OnEvent(EventType type, const void* data)

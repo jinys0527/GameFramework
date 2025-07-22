@@ -6,6 +6,7 @@
 #include "CameraObject.h"
 #include "SpriteRenderer.h"
 #include "TransformComponent.h"
+#include "BoxColliderComponent.h"
 
 TestListener* test;
 
@@ -33,14 +34,24 @@ bool MainApp::Initialize()
 
 	m_Player = new GameObject(*m_EventDispatcher);
 	m_Player->AddComponent<SpriteRenderer>();
+	TransformComponent* trans = m_Player->GetComponent<TransformComponent>();
+	trans->SetPosition({ 0.0f, 400.0f });
+	m_EventDispatcher->AddListener(EventType::KeyDown, trans);
+	m_EventDispatcher->AddListener(EventType::KeyUp, trans);
+	BoxColliderComponent* bx = m_Player->AddComponent<BoxColliderComponent>();
+	bx->SetCenter({ 0.0f, 400.0f });
+	bx->SetSize({ 100.0f, 100.0f });
+	bx->Start();
 
+	m_Obstacle = new GameObject(*m_EventDispatcher);
+	m_Obstacle->AddComponent<SpriteRenderer>();
+	trans = m_Obstacle->GetComponent < TransformComponent>();
+	trans->SetPosition({ 500.0f, 300.0f });
+	bx = m_Obstacle->AddComponent<BoxColliderComponent>();
+	bx->SetCenter({ 500.0f, 300.0f });
+	bx->SetSize({ 100.0f, 100.0f });
+	bx->Start();
 
-	return true;
-}
-
-void MainApp::Run()
-{
-	MSG msg = { 0 };
 
 	m_testBitmap = m_AssetManager->LoadTexture(L"cat_texture", L"../Resource/cat.png");
 	assert(m_testBitmap != nullptr && "Failed to load test bitmap.");
@@ -48,12 +59,21 @@ void MainApp::Run()
 	m_background = m_AssetManager->LoadTexture(L"vecteezy", L"../Resource/vecteezy.png");
 	assert(m_background != nullptr && "Failed to load background texture.");
 
+
 	SpriteRenderer* sr = m_Player->GetComponent<SpriteRenderer>();
 	sr->SetTexture(m_testBitmap);
 
-	TransformComponent* trans = m_Player->GetComponent<TransformComponent>();
-	trans->SetPosition({ 0.0f, 400.0f });
-	m_EventDispatcher->AddListener(EventType::KeyDown, trans);
+
+	sr = m_Obstacle->GetComponent< SpriteRenderer>();
+	sr->SetTexture(m_testBitmap);
+;
+
+	return true;
+}
+
+void MainApp::Run()
+{
+	MSG msg = { 0 };
 
 	while (WM_QUIT != msg.message)
 	{
@@ -111,6 +131,8 @@ void MainApp::UpdateLogic()
 void MainApp::Update()
 {
 	m_Player->Update(m_GameTimer.DeltaTime());
+	BoxColliderComponent ob = *m_Obstacle->GetComponent<BoxColliderComponent>();
+	m_Player->GetComponent<BoxColliderComponent>()->BoxVsBox(ob);
 }
 
 void MainApp::Render()
@@ -146,6 +168,17 @@ void MainApp::Render()
 	ID2D1Bitmap1* bmp = *sp.GetTexture().GetAddressOf();
 
 	m_Renderer->DrawBitmap(bmp, srcRect);
+
+	trans = *m_Obstacle->RenderPosition();
+	pos = trans.GetPosition();
+
+	m_Renderer->SetTransform(D2D1::Matrix3x2F::Translation(pos.x, pos.y));
+
+	sp = *m_Obstacle->RenderTexture();
+	bmp = *sp.GetTexture().GetAddressOf();
+
+	m_Renderer->DrawBitmap(bmp, srcRect);
+
 	
 	m_Renderer->RenderEnd();
 }

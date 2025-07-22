@@ -19,11 +19,15 @@ class ColliderComponent : public Component, public IEventListener
 {
 	
 public:
-	virtual ~ColliderComponent() = default;
-	void Start();
+	virtual ~ColliderComponent() { OnDestroy(); }
+	virtual void Start();
+	void SetCenter(const Vec2F& center)
+	{
+		this->center = center;
+	}
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
-	void OnDestroy();
+	virtual void OnDestroy();
 
 protected:
 	virtual void OnCollisionEnter(const CollisionInfo* info) {}

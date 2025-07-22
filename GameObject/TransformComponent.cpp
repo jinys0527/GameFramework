@@ -1,7 +1,6 @@
 #include "TransformComponent.h"
 #include "Event.h"
 #include <cassert>
-#include <iostream>
 
 void TransformComponent::SetParent(TransformComponent* newParent)
 {
@@ -119,7 +118,6 @@ void TransformComponent::SetPivotPreset(PivotPreset preset, const D2D1_SIZE_F& s
 
 void TransformComponent::Update(float deltaTime)
 {
-	std::cout << 1 << std::endl;
 	constexpr float moveSpeed = 100.0f; // 초당 이동 속도
 	D2D1_POINT_2F delta = { 0.0f, 0.0f };
 
@@ -127,7 +125,7 @@ void TransformComponent::Update(float deltaTime)
 	if (m_IsAPressed) delta.x -= moveSpeed * deltaTime;
 	if (m_IsSPressed) delta.y += moveSpeed * deltaTime;
 	if (m_IsDPressed) delta.x += moveSpeed * deltaTime;
-	std::cout << 2 << std::endl;
+
 	m_position.x += delta.x;
 	m_position.y += delta.y;
 
