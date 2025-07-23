@@ -1,14 +1,11 @@
 #include "pch.h"
 #include "MainApp.h"
-#include "TestListener.h"
 #include "SimpleMathHelper.h"
 #include "GameObject.h"
 #include "CameraObject.h"
 #include "SpriteRenderer.h"
 #include "TransformComponent.h"
 #include "BoxColliderComponent.h"
-
-TestListener* test;
 
 bool MainApp::Initialize()
 {
@@ -28,26 +25,20 @@ bool MainApp::Initialize()
 
 	m_GameTimer.Reset();
 
-	test = new TestListener();
-	m_EventDispatcher->AddListener(EventType::KeyDown, test);
-	m_EventDispatcher->AddListener(EventType::KeyUp, test);
-
 	m_Player = new GameObject(*m_EventDispatcher);
 	m_Player->AddComponent<SpriteRenderer>();
 	TransformComponent* trans = m_Player->GetComponent<TransformComponent>();
-	trans->SetPosition({ 0.0f, 400.0f });
+	trans->SetPosition({ 200.0f, 400.0f });
 	m_EventDispatcher->AddListener(EventType::KeyDown, trans);
 	m_EventDispatcher->AddListener(EventType::KeyUp, trans);
 	BoxColliderComponent* bx = m_Player->AddComponent<BoxColliderComponent>();
-	bx->SetSize({ 100.0f, 100.0f });
 	bx->Start();
 
 	m_Obstacle = new GameObject(*m_EventDispatcher);
 	m_Obstacle->AddComponent<SpriteRenderer>();
 	trans = m_Obstacle->GetComponent < TransformComponent>();
-	trans->SetPosition({ 500.0f, 300.0f });
+	trans->SetPosition({ 700.0f, 300.0f });
 	bx = m_Obstacle->AddComponent<BoxColliderComponent>();
-	bx->SetSize({ 100.0f, 100.0f });
 	bx->Start();
 
 
@@ -64,7 +55,7 @@ bool MainApp::Initialize()
 
 	sr = m_Obstacle->GetComponent< SpriteRenderer>();
 	sr->SetTexture(m_testBitmap);
-;
+	
 
 	return true;
 }
@@ -77,8 +68,8 @@ void MainApp::Run()
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			if(false == m_InputManager->OnHandleMessage(msg))
-			TranslateMessage(&msg);
+			if (false == m_InputManager->OnHandleMessage(msg))
+				TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
 		else
@@ -94,7 +85,6 @@ void MainApp::Run()
 
 void MainApp::Finalize()
 {
-	delete test;
 	if (m_Player)
 	{
 		delete m_Player;
@@ -190,24 +180,41 @@ void MainApp::Render()
 	TransformComponent trans = *m_Player->RenderPosition();
 	Math::Vector2F pos = trans.GetPosition();
 
-	m_Renderer->SetTransform(D2D1::Matrix3x2F::Translation(pos.x, pos.y));
-	
+	m_Renderer->SetTransform(D2D1::Matrix3x2F::Translation(pos.x - srcSize.width/2, pos.y - srcSize.height / 2));
+
 	SpriteRenderer sp = *m_Player->RenderTexture();
 	ID2D1Bitmap1* bmp = *sp.GetTexture().GetAddressOf();
 
 	m_Renderer->DrawBitmap(bmp, srcRect);
 
+	m_Renderer->SetTransform(D2D1::Matrix3x2F::Identity());
+	BoxColliderComponent* bx = m_Player->GetComponent<BoxColliderComponent>();
+	bx->SetSize({ srcSize.width, srcSize.height });
+	float left = bx->GetCenter().x - bx->GetSize().x / 2;
+	float top = bx->GetCenter().y - bx->GetSize().y / 2;
+	float right = bx->GetCenter().x + bx->GetSize().x / 2;
+	float bottom = bx->GetCenter().y + bx->GetSize().y / 2;
+	m_Renderer->DrawRectangle(left, top, right, bottom, D2D1::ColorF::Black);
+
 	trans = *m_Obstacle->RenderPosition();
 	pos = trans.GetPosition();
 
-	m_Renderer->SetTransform(D2D1::Matrix3x2F::Translation(pos.x, pos.y));
+	m_Renderer->SetTransform(D2D1::Matrix3x2F::Translation(pos.x - srcSize.width / 2, pos.y - srcSize.height / 2));
 
 	sp = *m_Obstacle->RenderTexture();
 	bmp = *sp.GetTexture().GetAddressOf();
 
 	m_Renderer->DrawBitmap(bmp, srcRect);
 
-	
+	m_Renderer->SetTransform(D2D1::Matrix3x2F::Identity());
+	bx = m_Obstacle->GetComponent<BoxColliderComponent>();
+	bx->SetSize({ srcSize.width, srcSize.height });
+	left = bx->GetCenter().x - bx->GetSize().x / 2;
+	top = bx->GetCenter().y - bx->GetSize().y / 2;
+	right = bx->GetCenter().x + bx->GetSize().x / 2;
+	bottom = bx->GetCenter().y + bx->GetSize().y / 2;
+	m_Renderer->DrawRectangle(left, top, right, bottom, D2D1::ColorF::Black);
+
 	m_Renderer->RenderEnd();
 }
 

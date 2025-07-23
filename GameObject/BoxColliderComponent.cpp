@@ -10,7 +10,9 @@ void BoxColliderComponent::Start()
 	GetEventDispatcher().AddListener(EventType::CollisionExit, this);
 	auto* transform = m_owner->GetComponent<TransformComponent>();
 	if (transform)
+	{
 		center = transform->GetPosition();
+	}
 }
 
 bool BoxColliderComponent::BoxVsBox(const BoxColliderComponent& other) const

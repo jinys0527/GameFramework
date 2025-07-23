@@ -14,6 +14,10 @@ public:
 	void SetSize(const Vec2F& size) {
 		Size = size;
 	}
+
+	const Vec2F& GetSize() const {
+		return Size;
+	}
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
 	void OnDestroy() override;

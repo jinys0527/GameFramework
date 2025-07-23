@@ -36,6 +36,9 @@ public:
 	{
 		this->center = center;
 	}
+	const Vec2F& GetCenter() const {
+		return center;
+	}
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
 	virtual void OnDestroy();
