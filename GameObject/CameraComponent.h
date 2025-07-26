@@ -10,7 +10,7 @@ public:
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
 protected:
-	float width;
-	float height;
+	float m_Width;
+	float m_Height;
 };
 

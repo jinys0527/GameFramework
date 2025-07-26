@@ -8,68 +8,68 @@ GameTimer::GameTimer()
 
 float GameTimer::TotalTime() const
 {
-	if (mStopped)
+	if (m_Stopped)
 	{
-		return std::chrono::duration<float>(mStopTime - mStartTime - mPausedDuration).count();
+		return std::chrono::duration<float>(m_StopTime - m_StartTime - m_PausedDuration).count();
 	}
 	else
 	{
-		return std::chrono::duration<float>(Clock::now() - mStartTime - mPausedDuration).count();
+		return std::chrono::duration<float>(Clock::now() - m_StartTime - m_PausedDuration).count();
 	}
 }
 
 float GameTimer::DeltaTime() const
 {
-	return mDeltaTime.count();
+	return m_DeltaTime.count();
 }
 
 float GameTimer::DeltaTimeMs() const
 {
-	return mDeltaTime.count() * 1000.0f;
+	return m_DeltaTime.count() * 1000.0f;
 }
 
 void GameTimer::Reset()
 {
-	mStartTime = Clock::now();
-	mPrevTime = mStartTime;
-	mPausedDuration = Duration::zero();
-	mStopped = false;
+	m_StartTime = Clock::now();
+	m_PrevTime = m_StartTime;
+	m_PausedDuration = Duration::zero();
+	m_Stopped = false;
 }
 
 void GameTimer::Start()
 {
-	if (mStopped)
+	if (m_Stopped)
 	{
 		auto startAgain = Clock::now();
-		mPausedDuration += startAgain - mStopTime;
-		mPrevTime = startAgain;
-		mStopped = false;
+		m_PausedDuration += startAgain - m_StopTime;
+		m_PrevTime = startAgain;
+		m_Stopped = false;
 	}
 }
 
 void GameTimer::Stop()
 {
-	if (!mStopped)
+	if (!m_Stopped)
 	{
-		mStopTime = Clock::now();
-		mStopped = true;
+		m_StopTime = Clock::now();
+		m_Stopped = true;
 	}
 }
 
 void GameTimer::Tick()
 {
-	if (mStopped)
+	if (m_Stopped)
 	{
-		mDeltaTime = Duration::zero();
+		m_DeltaTime = Duration::zero();
 		return;
 	}
 
-	mCurrTime = Clock::now();
-	mDeltaTime = mCurrTime - mPrevTime;
-	mPrevTime = mCurrTime;
+	m_CurrTime = Clock::now();
+	m_DeltaTime = m_CurrTime - m_PrevTime;
+	m_PrevTime = m_CurrTime;
 
-	if (mDeltaTime.count() < 0.0f)
+	if (m_DeltaTime.count() < 0.0f)
 	{
-		mDeltaTime = Duration::zero();
+		m_DeltaTime = Duration::zero();
 	}
 }

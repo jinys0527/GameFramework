@@ -2,19 +2,19 @@
 
 void AnimationComponent::Play(const std::string& name, bool loop /*= true*/)
 {
-	if (m_currentClipName == name) return;
+	if (m_CurrentClipName == name) return;
 
-	m_animationController.SetClip(m_clips[name]);
-	m_animationController.SetLooping(loop);
-	m_animationController.SetElapsed(0.f);
-	m_currentClipName = name;
+	m_AnimationController.SetClip(m_Clips[name]);
+	m_AnimationController.SetLooping(loop);
+	m_AnimationController.SetElapsed(0.f);
+	m_CurrentClipName = name;
 }
 
 void AnimationComponent::Update(float deltaTime)
 {
-	m_animationController.Update(deltaTime);
+	m_AnimationController.Update(deltaTime);
 
-	const Frame& frame = m_animationController.GetCurrentFrame();
+	const Frame& frame = m_AnimationController.GetCurrentFrame();
 }
 
 void AnimationComponent::OnEvent(EventType type, const void* data)

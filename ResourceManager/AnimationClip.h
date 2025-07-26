@@ -6,19 +6,19 @@
 
 struct Frame
 {
-	D2D1_RECT_U srcRect;
-	float		duration;
+	D2D1_RECT_U m_SrcRect;
+	float		m_Duration;
 
-	float Width() const { return (float)srcRect.right - srcRect.left; }
-	float Height() const { return (float)srcRect.bottom - srcRect.top; }
+	float Width() const { return (float)m_SrcRect.right - m_SrcRect.left; }
+	float Height() const { return (float)m_SrcRect.bottom - m_SrcRect.top; }
 
 	D2D1_RECT_F ToRectF() const
 	{
 		return D2D1::RectF(
-			static_cast<float>(srcRect.left),
-			static_cast<float>(srcRect.top),
-			static_cast<float>(srcRect.right),
-			static_cast<float>(srcRect.bottom)
+			static_cast<float>(m_SrcRect.left),
+			static_cast<float>(m_SrcRect.top),
+			static_cast<float>(m_SrcRect.right),
+			static_cast<float>(m_SrcRect.bottom)
 		);
 	}
 };
@@ -26,10 +26,10 @@ struct Frame
 
 struct Tag
 {
-	std::string m_name;
-	int m_from;
-	int m_to;
-	std::string m_direction;
+	std::string m_Name;
+	int m_From;
+	int m_To;
+	std::string m_Direction;
 };
 
 class AnimationClip
@@ -40,23 +40,23 @@ public:
 
 	void AddFrame(const Frame& frame)
 	{
-		m_frames.emplace_back(frame);
-		m_totalDuration += frame.duration;
+		m_Frames.emplace_back(frame);
+		m_TotalDuration += frame.m_Duration;
 	}
 
 	void SetTextureKey(std::wstring key)
 	{
-		m_textureKey = key;
+		m_TextureKey = key;
 	}
-	Frame& GetFrame(int index) { return m_frames[index]; }
+	Frame& GetFrame(int index) { return m_Frames[index]; }
 
-	const std::vector<Frame>& GetFrames() const { return m_frames; }
-	float GetTotalDuration() const { return m_totalDuration; }
-	const std::wstring GetTextureKey() const { return m_textureKey; }
+	const std::vector<Frame>& GetFrames() const { return m_Frames; }
+	float GetTotalDuration() const { return m_TotalDuration; }
+	const std::wstring GetTextureKey() const { return m_TextureKey; }
 
 private:
-	std::vector<Frame> m_frames;
-	float m_totalDuration = 0.f;
-	std::wstring m_textureKey;
+	std::vector<Frame> m_Frames;
+	float m_TotalDuration = 0.f;
+	std::wstring m_TextureKey;
 };
 

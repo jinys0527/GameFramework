@@ -10,6 +10,6 @@ public:
 	void OnEvent(EventType type, const void* data) override;
 
 private:
-	FSM fsm;
+	FSM m_Fsm;
 };
 

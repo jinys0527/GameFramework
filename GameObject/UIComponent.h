@@ -15,7 +15,7 @@ protected:
 	enum class UIInteractionState {None, Hovered, Pressed, Released};
 	UIInteractionState m_State = UIInteractionState::None;
 
-	bool m_bVisible = true;
+	bool m_Visible = true;
 	int m_ZOrder = 0;
 	float m_Opacity = 1.0f;
 };

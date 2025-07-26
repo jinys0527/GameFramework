@@ -42,19 +42,19 @@ bool MainApp::Initialize()
 	bx->Start();
 
 
-	m_testBitmap = m_AssetManager->LoadTexture(L"cat_texture", L"../Resource/cat.png");
-	assert(m_testBitmap != nullptr && "Failed to load test bitmap.");
+	m_TestBitmap = m_AssetManager->LoadTexture(L"cat_texture", L"../Resource/cat.png");
+	assert(m_TestBitmap != nullptr && "Failed to load test bitmap.");
 
-	m_background = m_AssetManager->LoadTexture(L"vecteezy", L"../Resource/vecteezy.png");
-	assert(m_background != nullptr && "Failed to load background texture.");
+	m_Background = m_AssetManager->LoadTexture(L"vecteezy", L"../Resource/vecteezy.png");
+	assert(m_Background != nullptr && "Failed to load background texture.");
 
 
 	SpriteRenderer* sr = m_Player->GetComponent<SpriteRenderer>();
-	sr->SetTexture(m_testBitmap);
+	sr->SetTexture(m_TestBitmap);
 
 
 	sr = m_Obstacle->GetComponent< SpriteRenderer>();
-	sr->SetTexture(m_testBitmap);
+	sr->SetTexture(m_TestBitmap);
 	
 
 	return true;
@@ -157,7 +157,7 @@ void MainApp::Render()
 {
 	if (m_Renderer == nullptr) return;
 
-	D2D1_SIZE_F srcSize = m_testBitmap->GetSize();
+	D2D1_SIZE_F srcSize = m_TestBitmap->GetSize();
 	D2D1_RECT_F srcRect = D2D1::RectF(0.0f, 0.0f, srcSize.width, srcSize.height);
 
 	m_Renderer->SetTarget();
@@ -169,12 +169,12 @@ void MainApp::Render()
 	m_Renderer->SetTransform(D2D1::Matrix3x2F::Identity());
 
 	//배경 그리기
-	if (m_background != nullptr)
+	if (m_Background != nullptr)
 	{
-		D2D1_SIZE_F bgSize = m_background->GetSize();
+		D2D1_SIZE_F bgSize = m_Background->GetSize();
 		D2D1_RECT_F bgRect = D2D1::RectF(0.f, 0.f, bgSize.width * 2, bgSize.height * 2);
 
-		m_Renderer->DrawBitmap(m_background.Get(), bgRect);
+		m_Renderer->DrawBitmap(m_Background.Get(), bgRect);
 	}
 
 	TransformComponent trans = *m_Player->RenderPosition();

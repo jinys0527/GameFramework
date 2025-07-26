@@ -34,10 +34,10 @@ public:
 	virtual void Start();
 	void SetCenter(const Vec2F& center)
 	{
-		this->center = center;
+		m_Center = center;
 	}
 	const Vec2F& GetCenter() const {
-		return center;
+		return m_Center;
 	}
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
@@ -51,8 +51,8 @@ protected:
 
 
 
-	bool isTrigger;
-	Vec2F center;
+	bool m_IsTrigger;
+	Vec2F m_Center;
 
 	std::unordered_set<GameObject*> m_CurrentCollisions;
 	CollisionState m_CollisionState = CollisionState::None;

@@ -5,24 +5,24 @@ void SpriteRenderer::SetPivotPreset(SpritePivotPreset spp, const D2D1_SIZE_F& si
 	switch (spp)
 	{
 	case SpritePivotPreset::TopLeft:
-		m_pivot = { 0.0f, 0.0f };
+		m_Pivot = { 0.0f, 0.0f };
 		break;
 	case SpritePivotPreset::TopRight:
-		m_pivot = { size.width, 0.0f };
+		m_Pivot = { size.width, 0.0f };
 		break;
 	case SpritePivotPreset::Center:
-		m_pivot = { size.width * 0.5f, size.height * 0.5f };
+		m_Pivot = { size.width * 0.5f, size.height * 0.5f };
 		break;
 	case SpritePivotPreset::BottomLeft:
-		m_pivot = { 0.0f, size.height };
+		m_Pivot = { 0.0f, size.height };
 		break;
 	case SpritePivotPreset::BottomRight:
-		m_pivot = { size.width, size.height };
+		m_Pivot = { size.width, size.height };
 		break;
 	}
 }
 
-SpriteRenderer::SpriteRenderer() : m_flipX(false), m_flipY(false)
+SpriteRenderer::SpriteRenderer() : m_FlipX(false), m_FlipY(false)
 {
 }
 
@@ -46,22 +46,22 @@ Microsoft::WRL::ComPtr<ID2D1Bitmap1> SpriteRenderer::GetTexture() const
 
 void SpriteRenderer::SetFlipX(bool flipX)
 {
-	m_flipX = flipX;
+	m_FlipX = flipX;
 }
 
 bool SpriteRenderer::GetFlipX() const
 {
-	return m_flipX;
+	return m_FlipX;
 }
 
 void SpriteRenderer::SetFlipY(bool flipY)
 {
-	m_flipY = flipY;
+	m_FlipY = flipY;
 }
 
 bool SpriteRenderer::GetFlipY() const
 {
-	return m_flipY;
+	return m_FlipY;
 }
 
 

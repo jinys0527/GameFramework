@@ -5,6 +5,6 @@ CameraObject::CameraObject(EventDispatcher eventDispatcher, float width, float h
 {
 	AddComponent<CameraComponent>();
 	auto* camera = GetComponent<CameraComponent>();
-	camera->width = width;
-	camera->height = height;
+	camera->m_Width = width;
+	camera->m_Height = height;
 }

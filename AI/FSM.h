@@ -11,9 +11,9 @@ class FSM
 
 	struct State
 	{
-		StateFunc onEnter;
-		StateFuncFloat onUpdate;
-		StateFunc onExit;
+		StateFunc OnEnter;
+		StateFuncFloat OnUpdate;
+		StateFunc OnExit;
 	};
 
 	struct Transition 
@@ -23,12 +23,12 @@ class FSM
 
 	void AddState(const StateID& id, const State& state)
 	{
-		m_states[id] = state;
+		m_States[id] = state;
 	}
 
 	void AddTransition(const std::string& from, const std::string& to, const std::string& evt)
 	{
-		m_transitions[from][evt] = to;
+		m_Transitions[from][evt] = to;
 	}
 
 	void Update(float deltaTime);
@@ -44,11 +44,11 @@ class FSM
 
 	void ChangeState(const StateID& id);
 
-	const StateID& GetCurrentState() const { return m_currentState; }
+	const StateID& GetCurrentState() const { return m_CurrentState; }
 
 private:
-	std::unordered_map<StateID, State> m_states;
-	std::unordered_map <StateID, std::unordered_map <std::string, StateID>> m_transitions;
-	StateID m_currentState;
+	std::unordered_map<StateID, State> m_States;
+	std::unordered_map <StateID, std::unordered_map <std::string, StateID>> m_Transitions;
+	StateID m_CurrentState;
 };
 

@@ -58,7 +58,7 @@ void RectTransformComponent::SetPivotPreset(PivotPreset preset)
 
 void RectTransformComponent::UpdateMatrices()
 {
-	if (!m_isDirty) return;
+	if (!m_IsDirty) return;
 
 	D2D1_POINT_2F pivotOffset = D2D1::Point2F(
 		m_Size.x * m_Pivot.x,
@@ -82,25 +82,25 @@ void RectTransformComponent::UpdateMatrices()
 	auto matRot = Mat3X2F::Rotation(m_Rotation, pivotOffset);
 	auto matTrans = Mat3X2F::Translation(finalPosition.x, finalPosition.y);
 
-	m_localMatrix = matScale * matRot * matTrans;
+	m_LocalMatrix = matScale * matRot * matTrans;
 
 	if (m_Parent)
-		m_worldMatrix = m_localMatrix * m_Parent->GetWorldMatrix();
+		m_WorldMatrix = m_LocalMatrix * m_Parent->GetWorldMatrix();
 	else
-		m_worldMatrix = m_localMatrix;
+		m_WorldMatrix = m_LocalMatrix;
 
-	m_isDirty = false;
+	m_IsDirty = false;
 }
 
 
 const RectTransformComponent::Mat3X2F& RectTransformComponent::GetWorldMatrix()
 {
-	if (m_isDirty) UpdateMatrices();
-	return m_worldMatrix;
+	if (m_IsDirty) UpdateMatrices();
+	return m_WorldMatrix;
 }
 
 const RectTransformComponent::Mat3X2F& RectTransformComponent::GetLocalMatrix()
 {
-	if (m_isDirty) UpdateMatrices();
-	return m_localMatrix;
+	if (m_IsDirty) UpdateMatrices();
+	return m_LocalMatrix;
 }

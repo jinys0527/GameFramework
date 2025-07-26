@@ -19,21 +19,21 @@ public:
 	using Vec2F = Math::Vector2F;
 	using Matrix3X2F = D2D1::Matrix3x2F;
 
-	TransformComponent() : Component(), m_position{ 0, 0 }, m_rotation(0.0f), m_scale{ 1.0f, 1.0f }, m_isDirty(false), m_parent(nullptr)
+	TransformComponent() : Component(), m_Position{ 0, 0 }, m_Rotation(0.0f), m_Scale{ 1.0f, 1.0f }, m_IsDirty(false), m_Parent(nullptr)
 	{
-		m_localMatrix = D2D1::Matrix3x2F::Identity();
-		m_worldMatrix = D2D1::Matrix3x2F::Identity();
+		m_LocalMatrix = D2D1::Matrix3x2F::Identity();
+		m_WorldMatrix = D2D1::Matrix3x2F::Identity();
 	}
 
 	virtual ~TransformComponent()
 	{
-		for (auto* child : m_children)
+		for (auto* child : m_Children)
 		{
-			child->m_parent = nullptr;
+			child->m_Parent = nullptr;
 		}
 	}
 
-	TransformComponent* GetParent() const { return m_parent; }
+	TransformComponent* GetParent() const { return m_Parent; }
 
 	void SetParent(TransformComponent* newParent);
 	void DetachFromParent();
@@ -41,13 +41,13 @@ public:
 	void AddChild(TransformComponent* child);
 	void RemoveChild(TransformComponent* child);
 
-	void SetPosition(const Vec2F& pos) { m_position = pos; SetDirty(); }
-	void SetRotation(const float deg) { m_rotation = deg; SetDirty(); }
-	void SetScale(const Vec2F& scale) { m_scale = scale; SetDirty(); }
+	void SetPosition(const Vec2F& pos) { m_Position = pos; SetDirty(); }
+	void SetRotation(const float deg) { m_Rotation = deg; SetDirty(); }
+	void SetScale(const Vec2F& scale) { m_Scale = scale; SetDirty(); }
 
-	const Vec2F& GetPosition() const { return m_position; }
-	float GetRotation() const { return m_rotation; }
-	const Vec2F& GetScale() const { return m_scale; }
+	const Vec2F& GetPosition() const { return m_Position; }
+	float GetRotation() const { return m_Rotation; }
+	const Vec2F& GetScale() const { return m_Scale; }
 
 	void Translate(const Vec2F& delta);
 	void Translate(const float x, const float y);
@@ -62,7 +62,7 @@ public:
 	Matrix3X2F GetInverseWorldMatrix();
 
 	void SetPivotPreset(PivotPreset preset, const D2D1_SIZE_F& size);
-	D2D1_POINT_2F GetPivotPoint() const { return m_pivot; }
+	D2D1_POINT_2F GetPivotPoint() const { return m_Pivot; }
 
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
@@ -70,8 +70,8 @@ public:
 private:
 	void SetDirty()
 	{
-		m_isDirty = true;
-		for (auto* child : m_children)
+		m_IsDirty = true;
+		for (auto* child : m_Children)
 		{
 			child->SetDirty();
 		}
@@ -80,26 +80,26 @@ private:
 	void UpdateMatrices();
 
 private:
-	Vec2F m_position = { 0.0f, 0.0f };
-	float m_rotation = 0.0f;
-	Vec2F m_scale = { 1.0f, 1.0f };
+	Vec2F m_Position = { 0.0f, 0.0f };
+	float m_Rotation = 0.0f;
+	Vec2F m_Scale = { 1.0f, 1.0f };
 
-	D2D1_POINT_2F m_pivot = { 0.0f, 0.0f };
+	D2D1_POINT_2F m_Pivot = { 0.0f, 0.0f };
 
-	TransformComponent* m_parent = nullptr;
-	std::vector<TransformComponent*> m_children;
+	TransformComponent* m_Parent = nullptr;
+	std::vector<TransformComponent*> m_Children;
 
-	Matrix3X2F m_localMatrix;
-	Matrix3X2F m_worldMatrix;
+	Matrix3X2F m_LocalMatrix;
+	Matrix3X2F m_WorldMatrix;
 
 	bool m_IsWPressed = false;
 	bool m_IsAPressed = false;
 	bool m_IsSPressed = false;
 	bool m_IsDPressed = false;
 
-	bool m_isDirty = true;
+	bool m_IsDirty = true;
 
-	int zOrder = 0;
+	int m_ZOrder = 0;
 };
 
 	

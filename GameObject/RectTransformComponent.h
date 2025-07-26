@@ -92,7 +92,7 @@ public:
 private:
 	void SetDirty()
 	{
-		m_isDirty = true;
+		m_IsDirty = true;
 		for (auto* child : m_Children)
 		{
 			child->SetDirty();
@@ -109,12 +109,12 @@ private:
 	float m_Rotation;
 	Vec2F m_Scale;
 
-	Mat3X2F m_localMatrix;
-	Mat3X2F m_worldMatrix;
+	Mat3X2F m_LocalMatrix;
+	Mat3X2F m_WorldMatrix;
 
 	RectTransformComponent* m_Parent = nullptr;
 	std::vector<RectTransformComponent*> m_Children;
 
-	bool m_isDirty = true;
+	bool m_IsDirty = true;
 };
 

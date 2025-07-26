@@ -2,32 +2,32 @@
 
 void FSM::Update(float deltaTime)
 {
-	auto it = m_states.find(m_currentState);
-	if (it != m_states.end() && it->second.onUpdate)
+	auto it = m_States.find(m_CurrentState);
+	if (it != m_States.end() && it->second.OnUpdate)
 	{
-		it->second.onUpdate(deltaTime);
+		it->second.OnUpdate(deltaTime);
 	}
 }
 
 void FSM::SetInitialState(const StateID& id)
 {
-	auto it = m_states.find(id);
-	if (it == m_states.end())
+	auto it = m_States.find(id);
+	if (it == m_States.end())
 	{
 		return;
 	}
 
-	m_currentState = id;
-	if (it->second.onEnter)
+	m_CurrentState = id;
+	if (it->second.OnEnter)
 	{
-		it->second.onEnter();
+		it->second.OnEnter();
 	}
 }
 
 void FSM::Trigger(const std::string& evt)
 {
-	auto it = m_transitions.find(m_currentState);
-	if (it != m_transitions.end())
+	auto it = m_Transitions.find(m_CurrentState);
+	if (it != m_Transitions.end())
 	{
 		auto it2 = it->second.find(evt);
 		if (it2 != it->second.end())
@@ -39,17 +39,17 @@ void FSM::Trigger(const std::string& evt)
 
 void FSM::ChangeState(const StateID& id)
 {
-	if (m_currentState == id) return;
+	if (m_CurrentState == id) return;
 
-	if (m_states[m_currentState].onExit)
+	if (m_States[m_CurrentState].OnExit)
 	{
-		m_states[m_currentState].onExit();
+		m_States[m_CurrentState].OnExit();
 	}
 
-	m_currentState = id;
+	m_CurrentState = id;
 
-	if (m_states[m_currentState].onEnter)
+	if (m_States[m_CurrentState].OnEnter)
 	{
-		m_states[m_currentState].onEnter();
+		m_States[m_CurrentState].OnEnter();
 	}
 }

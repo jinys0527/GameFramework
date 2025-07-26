@@ -8,13 +8,13 @@ class RigidbodyComponent : public Component
 {
 	using Vec2F = Math::Vector2F;
 public:
-	RigidbodyComponent(float mass = 1.0f, bool isKinematic = false) : mass(mass), isKinematic(isKinematic), velocity(0, 0), force(0, 0), gravity(0.0f, -9.8f), frictionCoefficient(0.1f)
+	RigidbodyComponent(float mass = 1.0f, bool isKinematic = false) : m_Mass(mass), m_IsKinematic(isKinematic), m_Velocity(0, 0), m_Force(0, 0), m_Gravity(0.0f, -9.8f), m_FrictionCoefficient(0.1f)
 	{
 	}
 	
 	void Start()
 	{
-		transform = m_owner->GetComponent<TransformComponent>();
+		m_Transform = m_Owner->GetComponent<TransformComponent>();
 	}
 
 	void Update(float deltaTime) override;
@@ -22,9 +22,9 @@ public:
 
 	void AddForce(const Vec2F& f)
 	{
-		if (!isKinematic)
+		if (!m_IsKinematic)
 		{
-			force += f;
+			m_Force += f;
 		}
 	}
 
@@ -32,32 +32,32 @@ public:
 
 	void SetVelocity(const Vec2F& vel)
 	{
-		velocity = vel;
+		m_Velocity = vel;
 	}
 
 	const Vec2F& GetVelocity() const 
 	{
-		return velocity;
+		return m_Velocity;
 	}
 	
 	void SetIsKinematic(bool value)
 	{
-		isKinematic = value;
+		m_IsKinematic = value;
 	}
 
-	bool IsKinematic() const { return isKinematic; }
+	bool IsKinematic() const { return m_IsKinematic; }
 
-	void SetGravity(const Vec2F& g) { gravity = g; }
-	void SetFriction(float friction) { frictionCoefficient = friction; }
+	void SetGravity(const Vec2F& g) { m_Gravity = g; }
+	void SetFriction(float friction) { m_FrictionCoefficient = friction; }
 private:
-	float mass;
-	bool isKinematic;
+	float m_Mass;
+	bool m_IsKinematic;
 
-	Vec2F velocity;
-	Vec2F force;
-	Vec2F gravity;
-	float frictionCoefficient;
+	Vec2F m_Velocity;
+	Vec2F m_Force;
+	Vec2F m_Gravity;
+	float m_FrictionCoefficient;
 
-	TransformComponent* transform = nullptr;
+	TransformComponent* m_Transform = nullptr;
 };
 

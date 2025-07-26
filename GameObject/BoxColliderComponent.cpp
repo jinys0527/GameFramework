@@ -8,19 +8,19 @@ void BoxColliderComponent::Start()
 	GetEventDispatcher().AddListener(EventType::CollisionEnter, this);
 	GetEventDispatcher().AddListener(EventType::CollisionStay, this);
 	GetEventDispatcher().AddListener(EventType::CollisionExit, this);
-	auto* transform = m_owner->GetComponent<TransformComponent>();
+	auto* transform = m_Owner->GetComponent<TransformComponent>();
 	if (transform)
 	{
-		center = transform->GetPosition();
+		m_Center = transform->GetPosition();
 	}
 }
 
 bool BoxColliderComponent::BoxVsBox(const BoxColliderComponent& other) const
 {
-    Vec2F thisMin = center - Size / 2;
-    Vec2F thisMax = center + Size / 2;;
-    Vec2F otherMin = other.center - other.Size / 2;
-    Vec2F otherMax = other.center + other.Size / 2;
+    Vec2F thisMin = m_Center - m_Size / 2;
+    Vec2F thisMax = m_Center + m_Size / 2;;
+    Vec2F otherMin = other.m_Center - other.m_Size / 2;
+    Vec2F otherMax = other.m_Center + other.m_Size / 2;
 
     return (thisMax.x >= otherMin.x && thisMin.x <= otherMax.x) &&
            (thisMax.y >= otherMin.y && thisMin.y <= otherMax.y);
@@ -28,10 +28,10 @@ bool BoxColliderComponent::BoxVsBox(const BoxColliderComponent& other) const
 
 void BoxColliderComponent::Update(float deltaTime)
 {
-	auto* transform = m_owner->GetComponent<TransformComponent>();
+	auto* transform = m_Owner->GetComponent<TransformComponent>();
 	if (transform)
 	{
-		center = transform->GetPosition();
+		m_Center = transform->GetPosition();
 	}
 
 	m_CurrentCollisions.clear();

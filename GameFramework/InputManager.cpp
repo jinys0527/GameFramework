@@ -11,40 +11,40 @@ InputManager::InputManager(EventDispatcher& dispatcher) : m_EventDispatcher(disp
 
 void InputManager::Update()
 {
-	for (const auto& key : keysDown)
+	for (const auto& key : m_KeysDown)
 	{
-		if (!keysDownPrev.contains(key))
+		if (!m_KeysDownPrev.contains(key))
 		{
 			Events::KeyEvent e{ key };
 			m_EventDispatcher.Dispatch(EventType::KeyDown, &e);
 		}
 	}
 
-	for (const auto& key : keysDownPrev)
+	for (const auto& key : m_KeysDownPrev)
 	{
-		if (!keysDown.contains(key))
+		if (!m_KeysDown.contains(key))
 		{
 			Events::KeyEvent e{ key };
 			m_EventDispatcher.Dispatch(EventType::KeyUp, &e);
 		}
 	}
 
-	keysDownPrev = keysDown;
+	m_KeysDownPrev = m_KeysDown;
 }
 
 void InputManager::OnKeyDown(char key)
 {
-	keysDown.insert(key);
+	m_KeysDown.insert(key);
 }
 
 void InputManager::OnKeyUp(char key)
 {
-	keysDown.erase(key);
+	m_KeysDown.erase(key);
 }
 
 bool InputManager::IsKeyPressed(char key) const
 {
-	return keysDown.contains(key);
+	return m_KeysDown.contains(key);
 }
 
 bool InputManager::OnHandleMessage(const MSG& msg)

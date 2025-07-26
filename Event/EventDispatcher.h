@@ -11,6 +11,6 @@ public:
 	void Dispatch(EventType type, const void* data);
 
 private :
-	std::unordered_map<EventType, std::vector<IEventListener*>> listeners;
+	std::unordered_map<EventType, std::vector<IEventListener*>> m_Listeners;
 };
 

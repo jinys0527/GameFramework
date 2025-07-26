@@ -34,14 +34,14 @@ public:
 
 	const Vec2F& GetPivot() const
 	{
-		return m_pivot;
+		return m_Pivot;
 	}
 
 	void SetPivotPreset(SpritePivotPreset spp, const D2D1_SIZE_F& size);
 
 private:
 	Microsoft::WRL::ComPtr<ID2D1Bitmap1> m_Sprite;
-	bool m_flipX;
-	bool m_flipY;
-	Vec2F m_pivot;
+	bool m_FlipX;
+	bool m_FlipY;
+	Vec2F m_Pivot;
 };

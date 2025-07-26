@@ -22,14 +22,14 @@ private:
 	using TimePoint = Clock::time_point;
 	using Duration = std::chrono::duration<float>;
 
-	TimePoint mStartTime;
-	TimePoint mStopTime;
-	TimePoint mPrevTime;
-	TimePoint mCurrTime;
-	Duration mPausedDuration;
+	TimePoint m_StartTime;
+	TimePoint m_StopTime;
+	TimePoint m_PrevTime;
+	TimePoint m_CurrTime;
+	Duration m_PausedDuration;
 
-	Duration mDeltaTime;
-	bool mStopped = false;
+	Duration m_DeltaTime;
+	bool m_Stopped = false;
 };
 
 #endif // GAMETIMER_H

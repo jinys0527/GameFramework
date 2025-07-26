@@ -5,21 +5,21 @@
 void TransformComponent::SetParent(TransformComponent* newParent)
 {
 	assert(newParent != this);
-	assert(m_parent == nullptr);
+	assert(m_Parent == nullptr);
 
-	m_parent = newParent;
-	m_parent->AddChild(this);
+	m_Parent = newParent;
+	m_Parent->AddChild(this);
 
 	SetDirty();
 }
 
 void TransformComponent::DetachFromParent()
 {
-	if (m_parent == nullptr) return;
+	if (m_Parent == nullptr) return;
 
-	m_parent->RemoveChild(this);
+	m_Parent->RemoveChild(this);
 
-	m_parent = nullptr;
+	m_Parent = nullptr;
 
 	SetDirty();
 }
@@ -30,9 +30,9 @@ void TransformComponent::AddChild(TransformComponent* child)
 	childLocalTM = childLocalTM * GetInverseWorldMatrix();
 
 	auto m_noPivot = TM::RemovePivot(childLocalTM, child->GetPivotPoint());
-	TM::DecomposeMatrix3X2(m_noPivot, child->m_position, child->m_rotation, child->m_scale);
+	TM::DecomposeMatrix3X2(m_noPivot, child->m_Position, child->m_Rotation, child->m_Scale);
 
-	m_children.push_back(child);
+	m_Children.push_back(child);
 }
 
 void TransformComponent::RemoveChild(TransformComponent* child)
@@ -41,50 +41,50 @@ void TransformComponent::RemoveChild(TransformComponent* child)
 	childLocalTM = childLocalTM * GetWorldMatrix();
 
 	auto m_noPivot = TM::RemovePivot(childLocalTM, child->GetPivotPoint());
-	TM::DecomposeMatrix3X2(m_noPivot, child->m_position, child->m_rotation, child->m_scale);
+	TM::DecomposeMatrix3X2(m_noPivot, child->m_Position, child->m_Rotation, child->m_Scale);
 
-	m_children.erase(
-		std::remove(m_children.begin(), m_children.end(), child),
-		m_children.end()
+	m_Children.erase(
+		std::remove(m_Children.begin(), m_Children.end(), child),
+		m_Children.end()
 	);
 }
 
 void TransformComponent::Translate(const Vec2F& delta)
 {
-	m_position.x += delta.x;
-	m_position.y += delta.y;
+	m_Position.x += delta.x;
+	m_Position.y += delta.y;
 	SetDirty();
 }
 
 void TransformComponent::Translate(const float x, const float y)
 {
-	m_position.x += x;
-	m_position.y += y;
+	m_Position.x += x;
+	m_Position.y += y;
 	SetDirty();
 }
 
 void TransformComponent::Rotate(float deg)
 {
-	m_rotation += deg;
+	m_Rotation += deg;
 	SetDirty();
 }
 
 TransformComponent::Vec2F TransformComponent::GetForward() const
 {
-	float radian = Math::DegToRad(m_rotation);
+	float radian = Math::DegToRad(m_Rotation);
 	return { std::cosf(radian), std::sinf(radian) };
 }
 
 const TransformComponent::Matrix3X2F& TransformComponent::GetWorldMatrix()
 {
-	if (m_isDirty) UpdateMatrices();
-	return m_worldMatrix;
+	if (m_IsDirty) UpdateMatrices();
+	return m_WorldMatrix;
 }
 
 const TransformComponent::Matrix3X2F& TransformComponent::GetLocalMatrix()
 {
-	if (m_isDirty) UpdateMatrices();
-	return m_localMatrix;
+	if (m_IsDirty) UpdateMatrices();
+	return m_LocalMatrix;
 }
 
 TransformComponent::Matrix3X2F TransformComponent::GetInverseWorldMatrix()
@@ -99,19 +99,19 @@ void TransformComponent::SetPivotPreset(PivotPreset preset, const D2D1_SIZE_F& s
 	switch (preset)
 	{
 	case PivotPreset::TopLeft:
-		m_pivot = { 0.0f, 0.0f };
+		m_Pivot = { 0.0f, 0.0f };
 		break;
 	case PivotPreset::TopRight:
-		m_pivot = { size.width, 0.0f };
+		m_Pivot = { size.width, 0.0f };
 		break;
 	case PivotPreset::BottomLeft:
-		m_pivot = { 0.0f, size.height };
+		m_Pivot = { 0.0f, size.height };
 		break;
 	case PivotPreset::BottomRight:
-		m_pivot = { size.width, size.height };
+		m_Pivot = { size.width, size.height };
 		break;
 	case PivotPreset::Center:
-		m_pivot = { size.width * 0.5f, size.height * 0.5f };
+		m_Pivot = { size.width * 0.5f, size.height * 0.5f };
 		break;
 	}
 }
@@ -126,8 +126,8 @@ void TransformComponent::Update(float deltaTime)
 	if (m_IsSPressed) delta.y += moveSpeed * deltaTime;
 	if (m_IsDPressed) delta.x += moveSpeed * deltaTime;
 
-	m_position.x += delta.x;
-	m_position.y += delta.y;
+	m_Position.x += delta.x;
+	m_Position.y += delta.y;
 
 	if (delta.x != 0 || delta.y != 0)
 		SetDirty();
@@ -171,22 +171,22 @@ void TransformComponent::OnEvent(EventType type, const void* data)
 
 void TransformComponent::UpdateMatrices()
 {
-	auto mat_scale = Matrix3X2F::Scale(m_scale.x, m_scale.y, D2D1::Point2F(m_pivot.x, m_pivot.y));
+	auto mat_scale = Matrix3X2F::Scale(m_Scale.x, m_Scale.y, D2D1::Point2F(m_Pivot.x, m_Pivot.y));
 
-	auto mat_rot = Matrix3X2F::Rotation(m_rotation, D2D1::Point2F(m_pivot.x, m_pivot.y));
+	auto mat_rot = Matrix3X2F::Rotation(m_Rotation, D2D1::Point2F(m_Pivot.x, m_Pivot.y));
 
-	auto mat_trans = Matrix3X2F::Translation(m_position.x, m_position.y);
+	auto mat_trans = Matrix3X2F::Translation(m_Position.x, m_Position.y);
 
-	m_localMatrix = mat_scale * mat_rot * mat_trans;
+	m_LocalMatrix = mat_scale * mat_rot * mat_trans;
 
-	if (m_parent)
+	if (m_Parent)
 	{
-		m_worldMatrix = m_localMatrix * m_parent->GetWorldMatrix();
+		m_WorldMatrix = m_LocalMatrix * m_Parent->GetWorldMatrix();
 	}
 	else
 	{
-		m_worldMatrix = m_localMatrix;
+		m_WorldMatrix = m_LocalMatrix;
 	}
 
-	m_isDirty = false;
+	m_IsDirty = false;
 }

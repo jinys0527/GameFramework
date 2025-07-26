@@ -34,11 +34,11 @@ AnimationClips JsonParser::LoadAnimation(const std::filesystem::path& jsonPath)
 			const auto& frame = it.value();
 
 			Frame fd;
-			fd.srcRect.left = frame["frame"]["x"];
-			fd.srcRect.top = frame["frame"]["y"];
-			fd.srcRect.right = fd.srcRect.left + frame["frame"]["w"];
-			fd.srcRect.bottom = fd.srcRect.top + frame["frame"]["h"];
-			fd.duration = frame["duration"] / 1000.0f;
+			fd.m_SrcRect.left = frame["frame"]["x"];
+			fd.m_SrcRect.top = frame["frame"]["y"];
+			fd.m_SrcRect.right = fd.m_SrcRect.left + frame["frame"]["w"];
+			fd.m_SrcRect.bottom = fd.m_SrcRect.top + frame["frame"]["h"];
+			fd.m_Duration = frame["duration"] / 1000.0f;
 			clip.AddFrame(fd);
 		}
 	}
@@ -47,11 +47,11 @@ AnimationClips JsonParser::LoadAnimation(const std::filesystem::path& jsonPath)
 		for (const auto& frame : framesNode)
 		{
 			Frame fd;
-			fd.srcRect.left = frame["frame"]["x"];
-			fd.srcRect.top = frame["frame"]["y"];
-			fd.srcRect.right = fd.srcRect.left + frame["frame"]["w"];
-			fd.srcRect.bottom = fd.srcRect.top + frame["frame"]["h"];
-			fd.duration = frame["duration"] / 1000.0f;
+			fd.m_SrcRect.left = frame["frame"]["x"];
+			fd.m_SrcRect.top = frame["frame"]["y"];
+			fd.m_SrcRect.right = fd.m_SrcRect.left + frame["frame"]["w"];
+			fd.m_SrcRect.bottom = fd.m_SrcRect.top + frame["frame"]["h"];
+			fd.m_Duration = frame["duration"] / 1000.0f;
 			clip.AddFrame(fd);
 		}
 	}
@@ -72,19 +72,19 @@ AnimationClips JsonParser::LoadAnimation(const std::filesystem::path& jsonPath)
 		for (const auto& fTag : root["meta"]["frameTags"])
 		{
 			Tag tag;
-			tag.m_name = fTag["name"];
-			tag.m_from = fTag["from"];
-			tag.m_to = fTag["to"];
-			tag.m_direction = fTag["direction"];
+			tag.m_Name = fTag["name"];
+			tag.m_From = fTag["from"];
+			tag.m_To = fTag["to"];
+			tag.m_Direction = fTag["direction"];
 
 			AnimationClip subClip;
 
-			for (int i = tag.m_from; i <= tag.m_to; i++)
+			for (int i = tag.m_From; i <= tag.m_To; i++)
 			{
 				subClip.AddFrame(clip.GetFrame(i));
 			}
 
-			clips.emplace_back(std::make_pair(tag.m_name, subClip));
+			clips.emplace_back(std::make_pair(tag.m_Name, subClip));
 		}
 	}
 	else

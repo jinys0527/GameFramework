@@ -12,6 +12,6 @@ public:
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
 protected:
-	float radius;
+	float m_Radius;
 };
 

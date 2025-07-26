@@ -2,19 +2,19 @@
 
 void EventDispatcher::AddListener(EventType type, IEventListener* listener)
 {
-	listeners[type].push_back(listener);
+	m_Listeners[type].push_back(listener);
 }
 
 void EventDispatcher::RemoveListener(EventType type, IEventListener* listener)
 {
-	auto& v = listeners[type];
+	auto& v = m_Listeners[type];
 	v.erase(std::remove(v.begin(), v.end(), listener), v.end());
 }
 
 void EventDispatcher::Dispatch(EventType type, const void* data)
 {
-	auto it = listeners.find(type);
-	if (it != listeners.end())
+	auto it = m_Listeners.find(type);
+	if (it != m_Listeners.end())
 	{
 		for (auto* listener : it->second)
 		{

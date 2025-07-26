@@ -36,10 +36,10 @@ public:
 		m_MessageHandlers[msg].emplace_back(std::move(handler));
 	}
 
-	void SetOwner(GameObject* owner) { m_owner = owner; }
+	void SetOwner(GameObject* owner) { m_Owner = owner; }
 
 protected:
-	GameObject* m_owner = nullptr;
+	GameObject* m_Owner = nullptr;
 	std::unordered_map<myCore::MessageID, std::vector<HandlerType>> m_MessageHandlers;
 	EventDispatcher& GetEventDispatcher() const;
 };

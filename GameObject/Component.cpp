@@ -3,5 +3,5 @@
 
 EventDispatcher& Component::GetEventDispatcher() const
 {
-    return m_owner->GetEventDispatcher();
+    return m_Owner->GetEventDispatcher();
 }

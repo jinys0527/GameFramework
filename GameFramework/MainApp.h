@@ -38,9 +38,9 @@ private:
 
 	GameTimer m_GameTimer;
 
-	ComPtr<ID2D1Bitmap1>        m_testBitmap;
+	ComPtr<ID2D1Bitmap1>        m_TestBitmap;
 
-	ComPtr<ID2D1Bitmap1>        m_background;
+	ComPtr<ID2D1Bitmap1>        m_Background;
 
 	GameObject* m_Player;
 	CameraObject* m_Camera;

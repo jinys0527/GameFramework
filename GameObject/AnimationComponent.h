@@ -11,7 +11,7 @@ class AnimationComponent : public Component
 public:
 	void AddClip(const std::string& name, const AnimationClip* clip)
 	{
-		m_clips[name] = clip;
+		m_Clips[name] = clip;
 	}
 
 	void Play(const std::string& name, bool loop = true);
@@ -23,7 +23,7 @@ public:
 private:
 	using AnimationMap = std::unordered_map<std::string, const AnimationClip*>;
 
-	AnimationMap m_clips;
-	AnimationController m_animationController;
-	std::string m_currentClipName;
+	AnimationMap m_Clips;
+	AnimationController m_AnimationController;
+	std::string m_CurrentClipName;
 };

@@ -2,60 +2,60 @@
 
 void AnimationController::SetClip(const AnimationClip* clip)
 {
-	m_clip = clip;
-	m_elapsed = 0.f;
+	m_Clip = clip;
+	m_Elapsed = 0.f;
 }
 
 void AnimationController::SetLooping(bool loop)
 {
-	m_loop = loop;
+	m_Loop = loop;
 }
 
 void AnimationController::SetElapsed(float elapsedTime)
 {
-	m_elapsed = elapsedTime;
+	m_Elapsed = elapsedTime;
 }
 
 const Frame& AnimationController::GetCurrentFrame() const
 {
 	static Frame dummy{ {0, 0, 0, 0}, 0.f };
 
-	if (!m_clip || m_clip->GetFrames().empty())
+	if (!m_Clip || m_Clip->GetFrames().empty())
 	{
 		return dummy;
 	}
 
 	float accum = 0.f;
-	for (auto& frame : m_clip->GetFrames())
+	for (auto& frame : m_Clip->GetFrames())
 	{
 		accum += frame.duration;
 
-		if (m_elapsed < accum)
+		if (m_Elapsed < accum)
 			return frame;
 	}
 
-	return m_clip->GetFrames().back();
+	return m_Clip->GetFrames().back();
 }
 
 void AnimationController::Update(float deltaTime)
 {
-	if (!m_clip) return;
-	m_elapsed += deltaTime;
+	if (!m_Clip) return;
+	m_Elapsed += deltaTime;
 
-	float total = m_clip->GetTotalDuration();
+	float total = m_Clip->GetTotalDuration();
 
-	if (m_loop)
+	if (m_Loop)
 	{
-		if (m_elapsed >= total)
+		if (m_Elapsed >= total)
 		{
-			m_elapsed = std::fmod(m_elapsed, total);
+			m_Elapsed = std::fmod(m_Elapsed, total);
 		}
 	}
 	else
 	{
-		if (m_elapsed > total)
+		if (m_Elapsed > total)
 		{
-			m_elapsed = total;
+			m_Elapsed = total;
 		}
 	}
 }
