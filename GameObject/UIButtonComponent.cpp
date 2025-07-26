@@ -17,3 +17,11 @@ void UIButtonComponent::Update(float deltaTime)
 void UIButtonComponent::OnEvent(EventType type, const void* data)
 {
 }
+
+void UIButtonComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void UIButtonComponent::Deserialize(const nlohmann::json& j)
+{
+}

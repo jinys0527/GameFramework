@@ -19,3 +19,19 @@ bool CircleColliderComponent::CircleVsBox(const BoxColliderComponent& other) con
 
 	return distSq <= this->m_Radius * this->m_Radius;
 }
+
+void CircleColliderComponent::Update(float deltaTime)
+{
+}
+
+void CircleColliderComponent::OnEvent(EventType type, const void* data)
+{
+}
+
+void CircleColliderComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void CircleColliderComponent::Deserialize(const nlohmann::json& j)
+{
+}

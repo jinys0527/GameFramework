@@ -26,6 +26,14 @@ bool BoxColliderComponent::BoxVsBox(const BoxColliderComponent& other) const
            (thisMax.y >= otherMin.y && thisMin.y <= otherMax.y);
 }
 
+void BoxColliderComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void BoxColliderComponent::Deserialize(const nlohmann::json& j)
+{
+}
+
 void BoxColliderComponent::Update(float deltaTime)
 {
 	auto* transform = m_Owner->GetComponent<TransformComponent>();

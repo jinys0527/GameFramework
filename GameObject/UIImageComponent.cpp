@@ -14,3 +14,11 @@ void UIImageComponent::Render(D2DRenderer* renderer)
 {
 
 }
+
+void UIImageComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void UIImageComponent::Deserialize(const nlohmann::json& j)
+{
+}

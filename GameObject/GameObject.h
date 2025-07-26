@@ -7,12 +7,14 @@
 #include "CoreTypes.h"
 #include "Component.h"
 #include "EventDispatcher.h"
+#include "json.hpp"
 
 class TransformComponent;
 class SpriteRenderer;
 
 class GameObject
 {
+	friend class Editor;
 public:
 	GameObject(EventDispatcher& eventDispatcher);
 	virtual ~GameObject() = default;
@@ -32,6 +34,11 @@ public:
 		return ptr;
 	}
 
+	void AddComponent(std::unique_ptr<Component> comp)	//Deserialize¿ë
+	{
+		comp->SetOwner(this);
+		m_Components[typeid(*comp)] = std::move(comp);
+	}
 
 	template<typename T>
 	T* GetComponent() const 
@@ -54,8 +61,12 @@ public:
 	
 	void SendEvent(const std::string& evt);
 
+	void Serialize(nlohmann::json& j) const;
+	void Deserialize(const nlohmann::json& j);
+
 	EventDispatcher& GetEventDispatcher() const { return m_EventDispatcher; }
 protected:
+	std::string m_Name;
 	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_Components;
 	EventDispatcher& m_EventDispatcher;
 };

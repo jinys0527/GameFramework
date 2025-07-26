@@ -19,3 +19,11 @@ void UITextComponent::Render(D2DRenderer* renderer)
 {
 	
 }
+
+void UITextComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void UITextComponent::Deserialize(const nlohmann::json& j)
+{
+}

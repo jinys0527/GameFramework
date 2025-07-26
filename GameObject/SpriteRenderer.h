@@ -22,6 +22,10 @@ public:
 
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
+	std::string GetTypeName() override { return "SpriteRenderer"; }
+
+	void Serialize(nlohmann::json& j) const override;
+	void Deserialize(const nlohmann::json& j) override;
 
 	void SetTexture(Microsoft::WRL::ComPtr<ID2D1Bitmap1> texture);
 	Microsoft::WRL::ComPtr<ID2D1Bitmap1> GetTexture() const;

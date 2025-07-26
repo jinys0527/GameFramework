@@ -13,6 +13,10 @@ public:
 	void Render(D2DRenderer* renderer);
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
+	std::string GetTypeName() override { return "UIButtonComponent"; }
+
+	void Serialize(nlohmann::json& j) const override;
+	void Deserialize(const nlohmann::json& j) override;
 
 private:
 	std::function<void()> m_OnClick;

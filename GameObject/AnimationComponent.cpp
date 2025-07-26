@@ -21,3 +21,11 @@ void AnimationComponent::OnEvent(EventType type, const void* data)
 {
 
 }
+
+void AnimationComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void AnimationComponent::Deserialize(const nlohmann::json& j)
+{
+}

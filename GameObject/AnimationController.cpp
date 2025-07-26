@@ -28,7 +28,7 @@ const Frame& AnimationController::GetCurrentFrame() const
 	float accum = 0.f;
 	for (auto& frame : m_Clip->GetFrames())
 	{
-		accum += frame.duration;
+		accum += frame.m_Duration;
 
 		if (m_Elapsed < accum)
 			return frame;
@@ -63,4 +63,12 @@ void AnimationController::Update(float deltaTime)
 void AnimationController::OnEvent(EventType type, const void* data)
 {
 
+}
+
+void AnimationController::Serialize(nlohmann::json& j) const
+{
+}
+
+void AnimationController::Deserialize(const nlohmann::json& j)
+{
 }

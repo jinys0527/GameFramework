@@ -8,6 +8,14 @@ void RigidbodyComponent::OnEvent(EventType type, const void* data)
 {
 }
 
+void RigidbodyComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void RigidbodyComponent::Deserialize(const nlohmann::json& j)
+{
+}
+
 void RigidbodyComponent::Integrate(float deltaTime)
 {
 	if (m_IsKinematic || !m_Transform)

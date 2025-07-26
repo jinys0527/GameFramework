@@ -40,7 +40,35 @@ SpriteRenderer* GameObject::RenderTexture()
 	return nullptr;
 }
 
+void GameObject::Serialize(nlohmann::json& j) const
+{
+	j["name"] = m_Name;
+	j["components"] = nlohmann::json::array();
+	for (const auto& component : m_Components)
+	{
+		nlohmann::json compJson;
+		compJson["type"] = component.second->GetTypeName();
+		component.second->Serialize(compJson["data"]);
+		j["components"].push_back(compJson);
+	}
+}
 
+void GameObject::Deserialize(const nlohmann::json& j)
+{
+	m_Name = j.at("name");
+	m_Components.clear();
+
+	for (const auto& compJson : j.at("components"))
+	{
+		std::string typeName = compJson.at("type");
+		auto comp = ComponentFactory::Instance().Create(typeName);
+		if (comp)
+		{
+			comp->Deserialize(compJson.at("data"));
+			AddComponent(std::move(comp));
+		}
+	}
+}
 
 void GameObject::SendMessages(const myCore::MessageID msg, void* data /* = nullptr */)
 {

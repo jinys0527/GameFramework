@@ -39,11 +39,15 @@ public:
 	const Vec2F& GetCenter() const {
 		return m_Center;
 	}
+	std::string GetTypeName() override { return "ColliderComponent"; }
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
 	virtual void OnDestroy();
 	CollisionState GetCollisionState() const { return m_CollisionState; }
 	void SetCollisionState(CollisionState state) { m_CollisionState = state; }
+
+	void Serialize(nlohmann::json& j) const override;
+	void Deserialize(const nlohmann::json& j) override;
 protected:
 	virtual void OnCollisionEnter(const CollisionInfo* info) {}
 	virtual void OnCollisionStay(const CollisionInfo* info)  {}

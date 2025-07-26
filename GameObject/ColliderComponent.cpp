@@ -36,3 +36,11 @@ void ColliderComponent::OnDestroy()
 	GetEventDispatcher().RemoveListener(EventType::CollisionStay, this);
 	GetEventDispatcher().RemoveListener(EventType::CollisionExit, this);
 }
+
+void ColliderComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void ColliderComponent::Deserialize(const nlohmann::json& j)
+{
+}

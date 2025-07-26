@@ -9,6 +9,10 @@ class UIComponent : public Component
 public:
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
+	std::string GetTypeName() override { return "UIComponent"; }
+
+	void Serialize(nlohmann::json& j) const override;
+	void Deserialize(const nlohmann::json& j) override;
 protected:
 	RectTransformComponent* m_RectTransform = nullptr;
 

@@ -16,9 +16,14 @@ public:
 
 	void Play(const std::string& name, bool loop = true);
 
+	std::string GetTypeName() override { return "AnimationComponent"; }
+
 	void Update(float deltaTime) override;
 
 	void OnEvent(EventType type, const void* data) override;
+
+	void Serialize(nlohmann::json& j) const override;
+	void Deserialize(const nlohmann::json & j) override;
 
 private:
 	using AnimationMap = std::unordered_map<std::string, const AnimationClip*>;

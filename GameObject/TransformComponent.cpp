@@ -169,6 +169,14 @@ void TransformComponent::OnEvent(EventType type, const void* data)
 	}
 }
 
+void TransformComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void TransformComponent::Deserialize(const nlohmann::json& j)
+{
+}
+
 void TransformComponent::UpdateMatrices()
 {
 	auto mat_scale = Matrix3X2F::Scale(m_Scale.x, m_Scale.y, D2D1::Point2F(m_Pivot.x, m_Pivot.y));

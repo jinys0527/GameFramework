@@ -34,6 +34,14 @@ void SpriteRenderer::OnEvent(EventType type, const void* data)
 {
 }
 
+void SpriteRenderer::Serialize(nlohmann::json& j) const
+{
+}
+
+void SpriteRenderer::Deserialize(const nlohmann::json& j)
+{
+}
+
 void SpriteRenderer::SetTexture(Microsoft::WRL::ComPtr<ID2D1Bitmap1> texture)
 {
 	m_Sprite = texture;

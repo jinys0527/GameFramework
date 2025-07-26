@@ -18,6 +18,11 @@ public:
 	const Vec2F& GetSize() const {
 		return m_Size;
 	}
+
+	void Serialize(nlohmann::json& j) const override;
+	void Deserialize(const nlohmann::json& j) override;
+
+	std::string GetTypeName() override { return "BoxColliderComponent"; }
 	void Update(float deltaTime) override;
 	void OnEvent(EventType type, const void* data) override;
 	void OnDestroy() override;

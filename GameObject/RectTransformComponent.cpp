@@ -8,6 +8,14 @@ void RectTransformComponent::OnEvent(EventType type, const void* data)
 {
 }
 
+void RectTransformComponent::Serialize(nlohmann::json& j) const
+{
+}
+
+void RectTransformComponent::Deserialize(const nlohmann::json& j)
+{
+}
+
 void RectTransformComponent::SetAnchorPreset(AnchorPrset preset)
 {
 	switch (preset)
